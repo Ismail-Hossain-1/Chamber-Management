@@ -1,0 +1,67 @@
+CREATE DATABASE Chamber_Management;
+
+
+CREATE TABLE tbl_Doctors(
+	
+    DoctorId varchar(30) Primary KEY not null,
+    Registration VARCHAR(8),
+    Name VARCHAR(30),
+    Speciality VARCHAR(30),
+    Qualifications VARCHAR(100),
+    Phone VARCHAR(14),
+    Email VARCHAR(30),
+    Address TEXT,
+    ClinicName VARCHAR(50),
+    ClinicAddress TEXT,
+    Availability BOOLEAN,
+    Fees  int,
+    Notes TEXT
+);
+
+
+CREATE TABLE tbl_Patients(
+    PatientId VARCHAR(30) PRIMARY KEY,
+    Name VARCHAR(30) NOT NULL,
+    DateOfBirth DATE,
+    Phone varchar(15),
+    Email varchar(30),
+    Address Text
+);
+
+ALTER TABLE
+    tbl_patients ADD COLUMN DoctorID VARCHAR(30),
+    ADD CONSTRAINT DoctorID
+    FOREIGN KEY(DoctorID) REFERENCES tbl_doctors(DoctorId);
+
+ALTER TABLE tbl_patients
+ADD COLUMN registration_date DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+
+CREATE TABLE tbl_appointments (
+    AppointmentID varchar(30) PRIMARY KEY not null,
+    PatientID varchar(30),
+    DoctorID varchar(30),
+    AppointmentDateTime DATETIME,
+    Status ENUM('confirmed', 'canceled', 'rescheduled') DEFAULT 'confirmed',
+    Notes TEXT,
+    FOREIGN KEY (PatientID) REFERENCES tbl_patients(PatientId),
+    FOREIGN KEY (DoctorID) REFERENCES tbl_doctors(DoctorId)
+);
+
+
+CREATE TABLE tbl_prescription (
+    PrescriptionID varchar(30) PRIMARY KEY,
+    PatientID varchar(30),
+    DoctorID varchar(30),
+    DateIssued DATE,
+    MedicationName VARCHAR(255),
+    Dosage VARCHAR(50),
+    Frequency VARCHAR(50),
+    Duration VARCHAR(50),
+    Status ENUM('Active', 'Expired', 'Filled'),
+    Instructions TEXT,
+    PrescriptionNotes TEXT,
+    FOREIGN KEY (PatientID) REFERENCES tbl_patients(PatientId),
+    FOREIGN KEY (DoctorID) REFERENCES tbl_doctors(DoctorId)
+);
+
