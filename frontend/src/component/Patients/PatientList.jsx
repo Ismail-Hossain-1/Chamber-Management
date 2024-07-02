@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import Patient from './Patient';
+import '../../App.css'
 
 const PatientList = () => {
 
@@ -35,7 +36,7 @@ const PatientList = () => {
       PatientList
 
       <div className=' flex flex-row  '>
-        <div className=' w-10/12 h-96 rounded-lg backdrop-blur-lg bg-opacity-0 overflow-y-auto text-white m-10 p-10'>
+        <div className=' w-10/12 PatientList rounded-lg backdrop-blur-lg bg-opacity-0 overflow-y-auto text-white m-10 p-10'>
           {allpatients.map((patient) => (
             <Patient key={patient.PatientId} patient={patient} /> // Pass patient data to Patient component
           ))}

@@ -24,7 +24,7 @@ const EditableAppointment = ({ appointment, onSave }) => {
             id="name"
             type="text"
             name="Name"
-            value={editedAppointment.Name}
+            value={editedAppointment.Name }
             onChange={handleChange}
           />
         </div>
@@ -53,8 +53,8 @@ const EditableAppointment = ({ appointment, onSave }) => {
             onChange={handleChange}
           >
             <option value="Pending">Pending</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Cancelled">Cancelled</option>
+            <option value="Done">Done</option>
+            
           </select>
         </div>
         <button

@@ -19,52 +19,62 @@ const Home = () => {
 
 
   useEffect(() => {
-    const fetchAppointments = async () => {
+    const fetchData = async () => {
+      if (!authUser || !authUser.token) {
+        return; // Handle case where authUser or token is not available
+      }
       try {
         setIsloadingAppointments(true);
-        const res = await axios.get('/doctor/appointmentstoday');
-        setTodayApppointments(res.data);
+        const resAppointments = await axios.get('/doctor/appointmentstoday');
+        setTodayApppointments(resAppointments.data);
+
+        setIsloadingStatistics(true);
+        const resStatistics = await axios.get('/doctor/patientsrange');
+        setStatistics(resStatistics.data);
       } catch (error) {
         toast.error(error.message);
       } finally {
         setIsloadingAppointments(false);
-      }
-    };
-
-    const fetchStatistics = async () => {
-      try {
-        setIsloadingStatistics(true);
-        const res = await axios.get('/doctor/patientsrange');
-        setStatistics(res.data);
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
         setIsloadingStatistics(false);
       }
     };
+    fetchData()
 
-    fetchAppointments();
-    fetchStatistics();
-
-  },[]);
+  }, []);
 
   const [searchQuery, setSearchQuery] = useState('');
   const filteredAppointments = todayApppointments.filter(appointment =>
     appointment.Name.toLowerCase().includes(searchQuery.toLowerCase()),
-    
+
   );
 
-  console.log(statistics);
+  //console.log(statistics);
 
   const chartData = [['Age Range', 'Count'], ...statistics.map(item => [item.age_range, item.count])];
 
   const options = {
-    title: "My Patients Statistics",
+    title: "My Patients Statistics in Different Age Ranges",
     is3D: true,
-    backgroundColor: {
-      fill: 'transparent'
-    }
+    backgroundColor: '#5e5e5e',
+    titleTextStyle: {
+      color: "#fff",
+      fontSize: 20
+    },
+    legend: {
+      textStyle: {
+        color: "#fff",
+        fontSize: 15,
 
+      },
+      position: 'bottom',
+      alignment: 'center',
+      maxLines: 2,
+      scrollArrows: {
+        activeColor: '#4CAF50', // Color of the scroll arrows.
+        inactiveColor: '#CCC' // Color of the inactive scroll arrows.
+      },
+
+    }
   };
 
   return (
@@ -92,7 +102,7 @@ const Home = () => {
               filteredAppointments.map(appointment => (
                 <div key={appointment.id} className="mb-2">
                   <Appointment appointment={appointment} />
-                  
+
                 </div>
               ))
             )
@@ -101,17 +111,20 @@ const Home = () => {
 
 
 
+
         <div className='flex flex-row backdrop-filter
-            backdrop-blur-lg bg-opacity-0 right-11 absolute'>
+            backdrop-blur-lg bg-opacity-0 ml-5'>
 
-          <Chart
-            chartType="PieChart"
-            data={chartData}
-            options={options}
-            width={"100%"}
-            height={"400px"}
 
-          />
+          {isloadingStatistics ? <span className='loading loading-spinner'> Loading</span> :
+            <Chart
+              chartType="PieChart"
+              data={chartData}
+              options={options}
+              width={"100%"}
+              height={"100%"}
+
+            />}
 
         </div>
 

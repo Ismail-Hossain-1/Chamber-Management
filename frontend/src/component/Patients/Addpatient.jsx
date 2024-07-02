@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 const AddPatient = () => {
     const [patient, setPatient] = useState({
         Name: '',
+        Age: '',
+        DateOfBirth: '',
         Email: '',
         Phone: '',
         Address: ''
@@ -13,6 +15,7 @@ const AddPatient = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(patient);
 
         try {
             const response = await axios.post(
@@ -24,6 +27,8 @@ const AddPatient = () => {
             toast.success(response.data.message);
             setPatient({
                 Name: '',
+                Age: '',
+                DateOfBirth: '',
                 Email: '',
                 Phone: '',
                 Address: ''
@@ -35,15 +40,34 @@ const AddPatient = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-8">
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="max-w-full p-10 mx-auto mt-6  backdrop-blur-lg bg-opacity-0 ">
+            <form onSubmit={handleSubmit} className="space-y-3">
                 <div>
                     <label htmlFor="name" className="block text-gray-700">Name</label>
                     <input
                         type="text"
-                        id="name"
+                        required
                         value={patient.Name}
                         onChange={(e) => setPatient({ ...patient, Name: e.target.value })}
+                        className="w-full px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="age" className="block text-gray-700">Age</label>
+                    <input
+                        type="text"
+                        required
+                        value={patient.Age}
+                        onChange={(e) => setPatient({ ...patient, Age: e.target.value })}
+                        className="w-full px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="DateOfBirth" className="block text-gray-700">Date Of Birth</label>
+                    <input
+                        type="date"
+                        value={patient.DateOfBirth}
+                        onChange={(e) => setPatient({ ...patient, DateOfBirth: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
                 </div>
@@ -71,6 +95,7 @@ const AddPatient = () => {
                     <label htmlFor="address" className="block text-gray-700">Address</label>
                     <textarea
                         id="address"
+                        required
                         value={patient.Address}
                         onChange={(e) => setPatient({ ...patient, Address: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"

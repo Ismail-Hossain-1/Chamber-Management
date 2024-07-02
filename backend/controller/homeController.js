@@ -34,7 +34,7 @@ const AppointmentsToday = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
         return;
       }
-      console.log("appointments ",rows)
+      //console.log("appointments ",rows)
       res.status(200).json(rows);
     })
   } catch (error) {
@@ -80,7 +80,7 @@ const PatientsRange = async (req, res) => {
         return;
       }
       //const respon= JSON.stringify(rows);
-      console.log(rows)
+      //console.log(rows)
       res.status(200).json(rows);
     })
 

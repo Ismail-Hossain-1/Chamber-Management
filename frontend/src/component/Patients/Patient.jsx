@@ -11,15 +11,15 @@ const Patient = ({ patient }) => {
     setPatientId(patientId);
     navigate(`/appointments/add?patientId=${patientId}`)
   };
-
+  //console.log('patient ', patient)
   return (
     <div className="flex flex-col border rounded-lg shadow-md p-4 mb-4 text-white">
       <div className='flex flex-col'>
-        <h3 className="text-lg font-medium mb-2">{patient.Name}</h3>
+        <h3 className="text-sm font-bold mb-2">{patient.Name}</h3>
         <ul className="list-none pl-4">
           <li>
-            <span className="font-bold mr-2">Patient ID:</span>
-            {patient.PatientId}
+            <span className="font-bold mr-2">Patient Address:</span>
+            {patient.Address}
           </li>
           <li>
             <span className="font-bold mr-2">Phone:</span>
@@ -32,7 +32,7 @@ const Patient = ({ patient }) => {
           {patient.DateOfBirth && ( // Only display if DateOfBirth exists
             <li>
               <span className="font-bold mr-2">Date of Birth:</span>
-              {patient.DateOfBirth}
+              {new Date(patient.DateOfBirth).toLocaleString()}
             </li>
           )}
         </ul>

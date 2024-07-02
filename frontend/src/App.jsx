@@ -17,29 +17,34 @@ import AddPatient from './component/Patients/Addpatient'
 import MakePrescription from './component/Prescriptions/MakePrescription'
 import EditableAppointment from './component/Appointment/EditableAppointment'
 
-const token = localStorage.getItem('token');
+//const token = localStorage.getItem('token');
 
 axios.defaults.baseURL = 'http://localhost:3000/api/';
-axios.defaults.headers.common['Authorization'] = token;
+//axios.defaults.headers.common['Authorization'] = token;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 function App() {
   const { authUser } = useAuthContext();
 
-  useEffect(()=>{
-
-  },[authUser])
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `${token}`;
+    } else {
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  }, [authUser]);
 
 
 
   return (
-    <div className=' flex '>
+    <div className=' flex'>
 
       {authUser ? <Navbar isloggedin={authUser} /> : ""}
-      <div className='h-screen ml-20'>
+      <div className='h-screen '>
         <Routes>
           <Route path='/login' element={authUser ? <Navigate to='/' /> : <Login />} />
-          <Route path='/register' element={authUser ? <Navigate to='/' /> : <SignUp />} />
+          <Route path='/register' element={authUser ? <Navigate to='/' /> :  <SignUp/>} />
 
           <Route path='/' element={authUser ? <Home /> : <Navigate to='/login' />} />
           <Route path='/appointments' element={authUser ? <Appointments /> : <Navigate to='/login' />} />

@@ -4,49 +4,64 @@ import useLogin from '../../hooks/useLogin';
 
 function Login() {
 
-    const [email, setEmail]= useState('');
-    const [password, setPassword]= useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const {loading, login}= useLogin();
+    const { loading, login } = useLogin();
 
-    const handleSubmit= async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        await login(email, password);
-        
+
+      //  await login(email, password);
+        setTimeout(
+            await login(email, password), 3000
+        )
+
     }
 
     return (
-        <div className=' relative flex flex-col items-center justify-center min-w-96 max-auto'>
-            <div className='w-full p-6 rounded-lg shadow-md bg-gray-500 bg-clip-padding backdrop-filter
-            backdrop-blur-lg bg-opacity-0'>
-
+        <div className='flex items-center justify-center min-h-screen'>
+            <div className='w-full max-w-md p-6 rounded-lg shadow-md bg-gray-500 bg-opacity-30 backdrop-filter backdrop-blur-lg'>
                 <h1 className='text-3xl font-semibold text-center text-gray-200'>Login</h1>
-
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label className='label p-2' >
-                            <span className='text-base font-bold text-gray-200 label-text'>Username</span>
-                        </label>
-                        <input type="text" placeholder='Enter username' className='w-full input input-bordered h-10' onChange={e=>setEmail(e.target.value)}/>
-                        
-                        <label className='label p-2' >
-                            <span className='text-base font-bold text-gray-200 label-text'>Password</span>
-                        </label>
-                        <input type="password" placeholder='Enter Password' className='w-full input input-bordered h-10' onChange={e=>setPassword(e.target.value)}/>
+                <form onSubmit={handleSubmit} className='mt-4'>
+                    <div className="space-y-4">
+                        <div>
+                            <label htmlFor="email" className='text-base font-bold text-gray-200'>Username</label>
+                            <input
+                                id="email"
+                                type="text"
+                                placeholder='Enter username'
+                                className='w-full input input-bordered h-10'
+                                onChange={e => setEmail(e.target.value)}
+                                value={email}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="password" className='text-base font-bold text-gray-200'>Password</label>
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder='Enter Password'
+                                className='w-full input input-bordered h-10'
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
+                            />
+                        </div>
                     </div>
-
-                    <Link to='/signup'  className='text-sm text-gray-500 hover:underline hover:text-blue-400 mt-2 inline-block'> Don't have account</Link>
-
-                   <div>
-                    <button className="btn btn-block btn-circle mt-3" disabled={loading}>
-                    {loading ? <span className='loading loading-spinner'></span> : 'Login'}
+                    <div className="mt-4">
+                        <button
+                            type="submit"
+                            className="w-full btn btn-circle btn-primary"
+                            disabled={loading}
+                        >
+                            {loading ? <span className='loading loading-spinner'></span> : 'Login'}
                         </button>
                     </div>
                 </form>
-
+                <div className="mt-4 text-sm text-center text-gray-300">
+                    <p>Don't have an account? <Link to='/register' className='font-medium text-blue-400 hover:text-blue-300'>Sign up here</Link></p>
+                </div>
             </div>
-            <Outlet/>
         </div>
     )
 }

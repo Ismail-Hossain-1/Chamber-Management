@@ -8,14 +8,14 @@ const pool = require('../db/pool')
 const AddPatient = async (req, res) => {
     //   console.log(req.user);
     try {
-        const { Name, DateOfBirth, Phone, Email, Address } = req.body.patient;
-        const DoctorID= req.user.DoctorId;
+        const { Name, Age, DateOfBirth, Phone, Email, Address } = req.body.patient;
+        const DoctorID = req.user.DoctorId;
 
         const PatientId = uuidv4();
 
 
-        const query = `INSERT INTO tbl_patients (PatientId, Name, DateOfBirth, Phone, Email, Address, DoctorID) VALUES (?, ?, ?, ?, ?, ?,?)`;
-        const values = [PatientId, Name, DateOfBirth, Phone, Email, Address, DoctorID];
+        const query = `INSERT INTO tbl_patients (PatientId, Name, Age, DateOfBirth, Phone, Email, Address, DoctorID) VALUES (?, ?, ?, ?, ?, ?,?, ?)`;
+        const values = [PatientId, Name, Age, DateOfBirth, Phone, Email, Address, DoctorID];
 
 
         await pool.query(query, values, (error, results, fields) => {
@@ -36,7 +36,7 @@ const AddAppoinment = async (req, res) => {
     const { PatientID, AppointmentDateTime, Status, Notes } = req.body;
     const AppointmentID = uuidv4();
     const DoctorID = req.user.DoctorId;
-    console.log(req.body);
+    //console.log(req.body);
 
     try {
         const query = 'INSERT INTO tbl_appointments (AppointmentID,	PatientID, DoctorID, AppointmentDateTime, Status, Notes) VALUES (?,?,?,?,?,?)';
@@ -57,7 +57,7 @@ const AddAppoinment = async (req, res) => {
 
 const AllAppoinments = async (req, res) => {
     const DoctorID = req.user.DoctorId;
-    console.log(req.body);
+   // console.log(req.body);
     try {
         const query = 'SELECT p.Name, a.* FROM tbl_patients p INNER JOIN tbl_appointments a ON p.PatientID = a.PatientID WHERE p.DoctorID=?';
         const values = [DoctorID];
@@ -67,31 +67,79 @@ const AllAppoinments = async (req, res) => {
                 res.status(500).json({ error: "Internal server error" });
                 return;
             }
-            console.log(rows)
+            //console.log(rows)
             res.status(200).json(rows);
         })
     } catch (error) {
         console.log(error);
-    
+
     }
 }
 
 const MakePrescription = async (req, res) => {
-    const { PatientID, MedicationName, Dosage, Frequency, Duration, Status, Instructions, PrescriptionNotes } = req.body;
-    const DateIssued=''
+    //console.log(req.body); // Check backend request body
+
+    const { PatientID, PrescriptionData, Instructions, PrescriptionNotes } = req.body;
+    const DateIssued = new Date().toISOString().slice(0, 19).replace('T',' '); // Current date in YYYY-MM-DD format
+    console.log(DateIssued)
     const DoctorID = req.user.DoctorId;
-    const PrescriptionID= uuidv4();
+    const PrescriptionID = uuidv4(); // Generate a unique PrescriptionID
 
-    const sql = 'INSERT INTO tbl_prescription (PrescriptionID, PatientID, DoctorID, DateIssued, MedicationName, Dosage, Frequency, Duration, Status, Instructions, PrescriptionNotes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const values = [PrescriptionID ,PatientID, DoctorID, DateIssued, MedicationName, Dosage, Frequency, Duration, Status, Instructions, PrescriptionNotes];
+    if (!Array.isArray(PrescriptionData) || PrescriptionData.length === 0) {
+        return res.status(400).send({ message: 'Invalid PrescriptionData format' });
+    }
 
-    await pool.query(sql, values, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        console.log('Prescription saved successfully');
-        res.status(201).send('Prescription saved successfully');
-    });
+    try {
+        const prescriptionValues = PrescriptionData.map(dose => [
+            PrescriptionID,
+            PatientID,
+            DoctorID,
+            DateIssued,
+            dose.MedicationName,
+            dose.Dosage,
+            dose.Frequency,
+            dose.Duration,
+            dose.Status,
+            Instructions,
+            PrescriptionNotes
+        ]);
+
+        const sql = 'INSERT INTO tbl_prescription (PrescriptionID, PatientID, DoctorID, DateIssued, MedicationName, Dosage, Frequency, Duration, Status, Instructions, PrescriptionNotes) VALUES ?';
+
+        await pool.query(sql, [prescriptionValues], (err, result) => {
+            if (err) {
+                console.error('Error saving prescription:', err);
+                return res.status(500).send({ message: 'Failed to save prescription' });
+            }
+            console.log('Prescription saved successfully');
+            res.status(201).send({ message: 'Prescription saved successfully' });
+        });
+    } catch (error) {
+        console.error('Error making prescription:', error);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+};
+
+const AllPrescriptions = async (req, res) => {
+    try {
+        const DoctorID = req.user.DoctorId;
+        console.log('Doctor: ',DoctorID)
+        const query = `SELECT p.Name, p.Address, p.Email, pres.* 
+            FROM tbl_patients p INNER JOIN 
+            tbl_prescription pres ON p.PatientID = pres.PatientID WHERE pres.DoctorID=? ORDER BY pres.DateIssued DESC`
+
+        await pool.query(query, [DoctorID], (err, rows) => {
+            if (err) {
+                console.error("Error getting all prescriptions:", err);
+                res.status(500).json({ error: "Internal server error" });
+                return;
+            }
+            console.log(rows)
+            res.status(200).json(rows);
+        })
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 const AllPatients = async (req, res) => {
@@ -116,4 +164,28 @@ const AllPatients = async (req, res) => {
 
 }
 
-module.exports = { AddPatient, AddAppoinment, AllAppoinments, MakePrescription, AllPatients };
+const UpdateAppointment = async (req, res) => {
+    const DoctorID = req.user.DoctorId;
+    const query = `UPDATE tbl_appointments SET Notes = ?, Status = ? WHERE AppointmentID = ?`;
+
+    const { Notes, Status, AppointmentID } = req.body;
+    console.log(req.body);
+    try {
+        await pool.query(query, [Notes, Status, AppointmentID], (err, results, fields) => {
+            if (err) {
+                console.error('Error updating appointments:', err);
+                return res.status(500).json({ error: 'Failed to update appointment' }); // Send error response to client
+            }
+
+            console.log(`Updated ${results.affectedRows} rows`);
+            return res.status(200).json({ message: 'Appointment updated successfully' });
+        });
+    } catch (error) {
+
+    }
+}
+
+module.exports = {
+    AddPatient, AddAppoinment, AllAppoinments,
+    MakePrescription, AllPrescriptions, AllPatients, UpdateAppointment
+};

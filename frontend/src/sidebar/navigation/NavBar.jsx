@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
 import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
+import Logout from './Logout';
 
 
 const Navbar = ({ isloggedin }) => {
@@ -12,6 +13,7 @@ const Navbar = ({ isloggedin }) => {
             localStorage.removeItem('auth-user');
     }
 
+    //console.log(isloggedin);
     useEffect(() => {
         const checkScreenSize = () => {
             return window.innerWidth > 768; // Adjust the threshold as needed for your mobile layout
@@ -25,6 +27,8 @@ const Navbar = ({ isloggedin }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    //console.log(isloggedin);
 
     return (
         <div className={`lg:w-48 sm:w-32 flex flex-col justify-between p-4 shadow-sm ${!nav ? 'fixed left-10 top-0 z-10' : ''}`}>
@@ -63,7 +67,8 @@ const Navbar = ({ isloggedin }) => {
                     <Link to='/patients' className='mb-4 '>Patients</Link>
                     <Link to='/prescriptions' className='mb-4 '>Prescriptions</Link>
                 </nav>
-                <button onClick={handleLogout} className='w-20 h-20 ml-10' ><BiLogOut className='text-2xl text-blue-900'/></button>
+
+                <Logout/>
             </div>
            
         </div>

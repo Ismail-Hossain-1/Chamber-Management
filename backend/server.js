@@ -22,7 +22,7 @@ app.use('/api/doctor', doctor);
 app.use('/api/doctor', quick);
 
 
-
+console.log(new Date().toLocaleString().slice(0, 21));
 
 app.get('', (req, res)=>{
     res.json("Server Running");

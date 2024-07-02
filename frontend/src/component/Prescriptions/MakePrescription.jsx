@@ -13,6 +13,8 @@ const MakePrescription = () => {
             Frequency: '',
             Duration: '',
             Status: '',
+            Instructions: '',
+            PrescriptionNotes: '',
         },
     ]);
 
@@ -49,19 +51,26 @@ const MakePrescription = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(prescriptionData);
+
         try {
-            const res = await axios.post('/doctor/makeprescription', prescriptionData); // Adjust endpoint as needed
+            const res = await axios.post('/doctor/makeprescription', {
+                PatientID: '768abc2c-9d0d-4c30-b9c9-698ffd', // Replace with actual PatientID
+                PrescriptionData: prescriptionData,
+                Instructions: prescriptionData[0].Instructions,
+                PrescriptionNotes: prescriptionData[0].PrescriptionNotes
+            });
             console.log(res.data);
+            toast.success(res.data.message);
         } catch (error) {
             console.error('Error making prescription:', error);
-            toast.error(error);
+            toast.error(error.message);
         }
     };
 
     return (
 
-        <div className="max-w-full rounded pr-10 mx-auto mt-8 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
-            <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="max-w-full rounded pr-10 mx-auto mt-8 bg-clip-padding bg-gray-600/60 backdrop-filter backdrop-blur-lg bg-opacity-0">
+            <form onSubmit={handleSubmit} className="space-y-4 p-5 m-5 rounded-lg">
                 <table className="w-full rounded-lg">
                     <thead>
                         <tr className="bg-green-300">
@@ -79,6 +88,7 @@ const MakePrescription = () => {
                                     <input
                                         type="text"
                                         name="MedicationName"
+                                        required
                                         value={dose.MedicationName}
                                         onChange={(e) => handleInputChange(e, index, 'MedicationName')}
                                         placeholder=" eg- Paracetamol "
@@ -133,9 +143,9 @@ const MakePrescription = () => {
                     <button
                         type="button"
                         onClick={handleAddDose}
-                        className="btn hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                        className="btn hover:bg-blue-600 text-xl focus:outline-none focus:bg-blue-600"
                     >
-                        Add Medication
+                        <RiAddLine />
                     </button>
                 </div>
                 <div className='flex w-6/12 flex-col'>
@@ -146,7 +156,7 @@ const MakePrescription = () => {
                             value={prescriptionData[0].Instructions}
                             onChange={(e) => handleInputChange(e, 0, 'Instructions')}
                             className="w-full rounded border border-gray-400 p-2"
-                            rows="2"
+                            rows="1"
                             placeholder="Enter instructions..."
                         ></textarea>
                     </div>
@@ -154,28 +164,32 @@ const MakePrescription = () => {
                         <h2 className="text-sm font-semibold mb-2">Prescription Notes:</h2>
                         <textarea
                             name="PrescriptionNotes"
+
                             value={prescriptionData[0].PrescriptionNotes}
                             onChange={(e) => handleInputChange(e, 0, 'PrescriptionNotes')}
                             className="w-full rounded border border-gray-400 p-2"
-                            rows="2"
+                            rows="1"
                             placeholder="Enter prescription notes..."
                         ></textarea>
                     </div>
                 </div>
-                <button
-                    type="submit"
-                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-                >
-                    Submit Prescription
-                </button>
-                {/* Download PDF link */}
-                <PDFDownloadLink
-                    document={<PDFDocument prescriptionData={prescriptionData} />}
-                    fileName="prescription.pdf"
-                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-                >
-                    {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
-                </PDFDownloadLink>
+
+                <div className=' flex gap-11'>
+                    <button
+                        type="submit"
+                        className="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-600"
+                    >
+                        Save Prescription
+                    </button>
+                    {/* Download PDF link */}
+                    <PDFDownloadLink
+                        document={<PDFDocument prescriptionData={prescriptionData} instructions={prescriptionData[0].Instructions} prescriptionNotes={prescriptionData[0].PrescriptionNotes} />}
+                        fileName="prescription.pdf"
+                        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                    >
+                        {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+                    </PDFDownloadLink>
+                </div>
             </form>
         </div>
     );

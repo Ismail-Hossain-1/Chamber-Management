@@ -42,7 +42,7 @@ CREATE TABLE tbl_appointments (
     PatientID varchar(30),
     DoctorID varchar(30),
     AppointmentDateTime DATETIME,
-    Status ENUM('confirmed', 'canceled', 'rescheduled') DEFAULT 'confirmed',
+    Status enum('pending', 'done') DEFAULT 'confirmed',
     Notes TEXT,
     FOREIGN KEY (PatientID) REFERENCES tbl_patients(PatientId),
     FOREIGN KEY (DoctorID) REFERENCES tbl_doctors(DoctorId)

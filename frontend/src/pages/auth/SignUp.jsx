@@ -6,70 +6,247 @@ function SignUp() {
 
 
 
-    const [userInfo, setUserInfo] = useState({
-        name: "",
-        username: "",
-        password: "",
-        confirmpassword: "",
-        gender: ""
-    })
+    const [formData, setFormData] = useState({
+        name: '',
+        speciality: '',
+        qualifications: '',
+        phone: '',
+        email: '',
+        password: '',
+        address: '',
+        clinicAddress: '',
+        availability: '',
+        fees: '',
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
 
     const { loading, signup } = useSignup();
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(userInfo);
         await signup(userInfo);
+        setFormData({
+            name: '',
+            speciality: '',
+            qualifications: '',
+            phone: '',
+            email: '',
+            password: '',
+            address: '',
+            clinicAddress: '',
+            availability: '',
+            fees: '',
+        });
     }
 
 
     return (
-        <div className='flex flex-col items-center justify-center min-w-96 max-auto'>
-            <div className='w-full p-6 rounded-lg shadow-md bg-gray-500 bg-clip-padding backdrop-filter
-            backdrop-blur-sm bg-opacity-0'>
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-2 sm:px-6 lg:px-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-2xl">
+                <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">Register your details</h2>
+            </div>
 
-
-                <h1 className='text-3xl font-semibold text-center text-gray-200'>Sign Up</h1>
-
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label className='label p-2' >
-                            <span className='text-base font-bold text-gray-200 label-text'>Name</span>
-                        </label>
-                        <input type="text" placeholder='Enter username' className='w-full input input-bordered h-10' value={userInfo.name} onChange={e => setUserInfo({ ...userInfo, name: e.target.value })} />
-
-                        <label className='label p-2' >
-                            <span className='text-base font-bold text-gray-200 label-text'>Username</span>
-                        </label>
-                        <input type="text" placeholder='Enter username' className='w-full input input-bordered h-10' value={userInfo.username} onChange={e => setUserInfo({ ...userInfo, username: e.target.value })} />
-
-                        <label className='label p-2' >
-                            <span className='text-base font-bold text-gray-200 label-text'>Password</span>
-                        </label>
-                        <input type="password" placeholder='Enter Password' className='w-full input input-bordered h-10' value={userInfo.password} onChange={e => setUserInfo({ ...userInfo, password: e.target.value })} />
-
-                        <label className='label p-2' >
-                            <span className='text-base font-bold text-gray-200 label-text'>Confirm Password</span>
-                        </label>
-                        <input type="password" placeholder='Confirm Password' className='w-full input input-bordered h-10' value={userInfo.confirmpassword} onChange={e => setUserInfo({ ...userInfo, confirmpassword: e.target.value })} />
-
+            <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-2xl">
+                <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-10">
+                    <form className="grid grid-cols-2 gap-x-4 gap-y-6" onSubmit={handleSubmit}>
                         <div>
-                            <label className='label p-2' >
-                                <span className='text-base font-bold text-gray-200 label-text'>Gender</span>
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                Name
                             </label>
-                            {/* <input type="password" placeholder='Enter Gender' className='w-full input input-bordered h-10' />
-                             */}
-                            <select name="gender" id="" className="select select-success w-full max-w-xs text-gray-800" value={userInfo.gender} onChange={e => setUserInfo({ ...userInfo, gender: e.target.value })}>
-                                <option >Select One</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
+                            <div className="mt-1 rounded-lg">
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    required
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="input-field bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
                         </div>
 
+                        <div>
+                            <label htmlFor="speciality" className="block text-sm font-medium text-gray-700">
+                                Speciality
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="speciality"
+                                    name="speciality"
+                                    type="text"
+                                    required
+                                    value={formData.speciality}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
 
+                        <div>
+                            <label htmlFor="qualifications" className="block text-sm font-medium text-gray-700">
+                                Qualifications
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="qualifications"
+                                    name="qualifications"
+                                    type="text"
+                                    required
+                                    value={formData.qualifications}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
 
+                        <div>
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                                Phone
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="phone"
+                                    name="phone"
+                                    type="tel"
+                                    required
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
 
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                Email
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    required
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
 
-                        <Link to="/login" className="text-sm text-gray-600 hover:underline hover:text-blue-500 mt-4 inline-block">
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                Password
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    required
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                                Address
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="address"
+                                    name="address"
+                                    type="text"
+                                    required
+                                    value={formData.address}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="clinicAddress" className="block text-sm font-medium text-gray-700">
+                                Clinic Address
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="clinicAddress"
+                                    name="clinicAddress"
+                                    type="text"
+                                    required
+                                    value={formData.clinicAddress}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="availability" className="block text-sm font-medium text-gray-700">
+                                Availability
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="availability"
+                                    name="availability"
+                                    type="text"
+                                    required
+                                    value={formData.availability}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="fees" className="block text-sm font-medium text-gray-700">
+                                Fees
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="fees"
+                                    name="fees"
+                                    type="text"
+                                    required
+                                    value={formData.fees}
+                                    onChange={handleChange}
+                                    className="input-field  bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="col-span-2 flex items-center justify-between">
+                            <div className="text-sm">
+                                <Link to="/login" className="text-sm text-gray-600 hover:underline hover:text-blue-500 mt-4 inline-block">
+                                    Already have an account?
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="col-span-2">
+                            <button className="btn btn-block btn-circle mt-3 bg-blue-400" disabled={loading}>
+                                {loading ? <span className='loading loading-spinner'></span> : 'Register'}
+
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default SignUp;
+
+{/* <Link to="/login" className="text-sm text-gray-600 hover:underline hover:text-blue-500 mt-4 inline-block">
                             Already have an account?
                         </Link>
                     </div>
@@ -78,12 +255,4 @@ function SignUp() {
                         <button className="btn btn-block btn-circle mt-3" disabled={loading}>
                            {loading ? <span className='loading loading-spinner'></span> : 'Sign Up'}
 
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
-}
-
-export default SignUp
+                        </button> */}

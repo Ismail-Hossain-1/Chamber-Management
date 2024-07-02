@@ -20,7 +20,7 @@ const useGetAppointments = () => {
         };
 
         fetchAppointments();
-    }, [token]); // Empty dependency array ensures fetching only once on component mount
+    }, []); // Empty dependency array ensures fetching only once on component mount
 
     // ... rest of your component logic and rendering
     return {isLoading, appointments};

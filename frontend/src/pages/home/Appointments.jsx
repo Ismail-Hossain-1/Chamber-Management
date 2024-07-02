@@ -16,14 +16,14 @@ const Appointments = () => {
 
             <div className=' flex flex-row '>
                 <div className=' w-8/12 h-96 rounded-lg  backdrop-blur-md bg-black/20  bg-opacity-0 overflow-y-auto  text-white m-10 p-5'>
-                <AppointmentsList/>
+                    <AppointmentsList />
                 </div>
                 <div className='w-80 h-32 bg-black/80 text-white m-10'>
                     This is
                 </div>
             </div>
 
-           
+
 
             <>
                 This is appointments

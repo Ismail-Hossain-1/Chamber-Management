@@ -4,10 +4,15 @@
 
 
 body{
-    background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url('/chamber1.jpg') ;
-    background-repeat: no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url('/chamber1.jpg');
+    background-repeat: repeat-y;
     background-position: center;
     background-size: cover;
+    min-height: 100vh; /* Ensure full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 ::-webkit-scrollbar{
