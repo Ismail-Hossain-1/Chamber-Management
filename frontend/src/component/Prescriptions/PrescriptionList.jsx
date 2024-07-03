@@ -38,7 +38,7 @@ const PrescriptionList = () => {
   });
 
   return (
-    <div className='flex flex-col w-full PatientList rounded-lg backdrop-blur-lg bg-gray-600/50 bg-opacity-0 overflow-y-auto text-white m-10 p-10'>
+    <div className='flex flex-col w-full PatientList rounded-lg backdrop-blur-lg bg-gray-600/50 bg-opacity-0 overflow-y-auto text-white m-10 p-10' style={{ height: '76vh' }}>
       <div className="mb-4">
         <input
           type="text"

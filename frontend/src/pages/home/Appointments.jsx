@@ -9,26 +9,26 @@ const Appointments = () => {
 
 
 
-
+    
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col '>
 
-            <div className=' flex flex-row '>
-                <div className=' w-8/12 h-96 rounded-lg  backdrop-blur-md bg-black/20  bg-opacity-0 overflow-y-auto  text-white m-10 p-5'>
+            <div className=' flex flex-row gap-x-5 '>
+                <div className={` w-8/12 rounded-lg  backdrop-blur-md bg-black/20  bg-opacity-0 overflow-y-auto  text-white mt-7 mb-3 p-5`} style={{ height: '77vh' }}>
                     <AppointmentsList />
                 </div>
-                <div className='w-80 h-32 bg-black/80 text-white m-10'>
-                    This is
+                <div className='max-w-96 h-32 bg-black/80 mt-7 mb-3 text-white '>
+                    This is and and and and and an lsadkjfalsdjfas fla;sjfl
                 </div>
             </div>
 
 
 
-            <>
-                This is appointments
-                <button onClick={() => navigate('/appointments/add')} className='btn'>Add Appointment</button>
-            </>
+            <div>
+                
+                <button onClick={() => navigate('/appointments/add')} className='btn mb-2 w-full'>Add Appointment</button>
+            </div>
 
             <Outlet />
 

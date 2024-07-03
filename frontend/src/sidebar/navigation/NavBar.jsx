@@ -8,9 +8,9 @@ import Logout from './Logout';
 const Navbar = ({ isloggedin }) => {
     const [nav, setNav] = useState(false);
 
-    const handleLogout=()=>{
-            localStorage.removeItem('token');
-            localStorage.removeItem('auth-user');
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('auth-user');
     }
 
     //console.log(isloggedin);
@@ -34,7 +34,7 @@ const Navbar = ({ isloggedin }) => {
         <div className={`lg:w-48 sm:w-32 flex flex-col justify-between p-4 shadow-sm ${!nav ? 'fixed left-10 top-0 z-10' : ''}`}>
 
             <div className="flex ">
-                <div onClick={() => setNav(!nav)} className={`cursor-pointer text-white bg-white/30  ${nav? "hidden":""} `}>
+                <div onClick={() => setNav(!nav)} className={`cursor-pointer text-white bg-white/30  ${nav ? "hidden" : ""} `}>
                     <AiOutlineMenu size={30} />
                 </div>
             </div>
@@ -49,7 +49,7 @@ const Navbar = ({ isloggedin }) => {
             <div
                 className={
                     nav
-                        ? "fixed top-14 left-0 w-48 h-screen rounded bg-white z-10 duration-300 backdrop-filter backdrop-blur-sm bg-opacity-0"
+                        ? "fixed top-14 left-0 w-48 h-screen rounded bg-stone-600/60 z-10 duration-300 backdrop-filter backdrop-blur-sm "
                         : "fixed top-10 left-[-100%] w-48 rounded-md h-screen bg-white z-10 duration-300"
                 }
             >
@@ -59,7 +59,7 @@ const Navbar = ({ isloggedin }) => {
                     className="absolute right-4 top-4 cursor-pointer text-white/70"
                 />
 
-               <div className='box-content bg-slate-300 pb-10'> <h1 className='pt-20 pl-20'>{isloggedin.user.Name}</h1></div>
+                <div className='box-content bg-slate-300 pb-10'> <h1 className='pt-20 pl-20'>{isloggedin.user.Name}</h1></div>
 
                 <nav className='mt-8 ml-4 mb-4 flex flex-col p-10 text-wrap text-orange-100 font-bold'>
                     <Link to='/' className='mb-4 ' >Dashboard</Link>
@@ -68,9 +68,9 @@ const Navbar = ({ isloggedin }) => {
                     <Link to='/prescriptions' className='mb-4 '>Prescriptions</Link>
                 </nav>
 
-                <Logout/>
+               <div className='items-center ml-6 bg-fuchsia-500/50 m-3 p-2 w-2/12 rounded'> <Logout /> </div>
             </div>
-           
+
         </div>
     );
 };

@@ -4,44 +4,13 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import Appointment from '../../component/home/Appointment';
 import { Chart } from "react-google-charts";
+import useGetHomeInfo from '../../hooks/home/useGetHomeInfo';
 
 const Home = () => {
 
-  const { authUser } = useAuthContext();
-
-  const [isloading, setIsloading] = useState(false);
-  const [todayApppointments, setTodayApppointments] = useState([]);
-  const [statistics, setStatistics] = useState([[]]);
-  const token = localStorage.getItem('token');
-
-  const [isloadingAppointments, setIsloadingAppointments] = useState(false);
-  const [isloadingStatistics, setIsloadingStatistics] = useState(false);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!authUser || !authUser.token) {
-        return; // Handle case where authUser or token is not available
-      }
-      try {
-        setIsloadingAppointments(true);
-        const resAppointments = await axios.get('/doctor/appointmentstoday');
-        setTodayApppointments(resAppointments.data);
-
-        setIsloadingStatistics(true);
-        const resStatistics = await axios.get('/doctor/patientsrange');
-        setStatistics(resStatistics.data);
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        setIsloadingAppointments(false);
-        setIsloadingStatistics(false);
-      }
-    };
-    fetchData()
-
-  }, []);
-
+  
+  
+  const {isloadingAppointments, todayApppointments, isloadingStatistics,statistics }= useGetHomeInfo();
   const [searchQuery, setSearchQuery] = useState('');
   const filteredAppointments = todayApppointments.filter(appointment =>
     appointment.Name.toLowerCase().includes(searchQuery.toLowerCase()),

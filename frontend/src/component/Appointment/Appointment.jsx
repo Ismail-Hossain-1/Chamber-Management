@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../context/authContext';
 
 const Appointment = ({ appointment }) => {
- // console.log(appointment);
   const { AppointmentDateTime, AppointmentID, DoctorID, Name, Notes, PatientID, Status } = appointment;
 
 
@@ -33,36 +33,35 @@ const Appointment = ({ appointment }) => {
   const handleSaveEdit = async () => {
     try {
       const { Notes, Status } = editableAppointment;
-      // Make the API call to save changes
       const response = await axios.put('/doctor/updateappointment', { Notes, Status, AppointmentID });
-  
-      // Optimistically update local state
+
       if (response.status === 200) {
-        // Update local editableAppointment with new Notes and Status
         setEditableAppointment(prevState => ({
           ...prevState,
           Notes,
           Status
         }));
-  
-        // Notify user of success
         toast.success('Appointment updated successfully');
       } else {
         toast.error('Failed to update appointment');
       }
-  
-      // Exit edit mode regardless of success/failure
       setIsEditing(false);
     } catch (error) {
       console.error('Error saving changes:', error);
       toast.error('Failed to update appointment');
-      // Reset editableAppointment to original appointment data on error
       setEditableAppointment(appointment);
     }
   };
-  
 
-  
+
+  const navigate = useNavigate();
+  const { setPatientId } = useAuthContext();
+
+  const handlePrescriptionClick = (PatientID) => {
+    setPatientId(PatientID);
+    navigate(`/prescriptions/make?patientId=${PatientID}`)
+  };
+
 
   return (
     <div className={`${appointmentBg} shadow-lg rounded-lg overflow-hidden m-2`}>
@@ -117,23 +116,32 @@ const Appointment = ({ appointment }) => {
               </div>
             </>
           ) : (
-            <>
+            <div>
               <p className="text-gray-700 mb-2">
                 <span className="font-semibold">Notes:</span> {editableAppointment.Notes}
               </p>
               <p className="text-gray-700 mb-2">
                 <span className="font-semibold">Status:</span> {editableAppointment.Status}
               </p>
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={handleEditClick}
-                  className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                >
-                  Edit
-                </button>
+              <div className='flex justify-between w-full'>
+                <div className="mt-4">
+                  <button
+                    onClick={handleEditClick}
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                  >
+                    Edit
+                  </button>
+                </div>
+                { editableAppointment.Status ==='done' && <div className=' mt-4'>
+                  <button onClick={()=>handlePrescriptionClick(PatientID)} className='bg-blue-600 py-2 px-4 rounded-md' >
+                    Make Prescriptions
+                  </button>
+                </div>}
               </div>
-            </>
+
+            </div>
           )}
+
         </div>
       </div>
     </div>

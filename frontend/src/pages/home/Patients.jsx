@@ -8,9 +8,9 @@ const Patients = () => {
     return (
         <div>
             <h1 className='text-white'>Patients</h1>
-            <PatientList/>
+            <PatientList/ >
             
-            <button onClick={()=>navigate('/patients/add')} className='btn bg-blue-200 mt-6'>Add Patient</button>
+            <button onClick={()=>navigate('/patients/add')} className='btn w-full bg-blue-200 mt-6'>Add Patient</button>
             
         </div>
     )

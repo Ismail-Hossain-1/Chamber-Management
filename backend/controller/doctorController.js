@@ -59,7 +59,7 @@ const AllAppoinments = async (req, res) => {
     const DoctorID = req.user.DoctorId;
    // console.log(req.body);
     try {
-        const query = 'SELECT p.Name, a.* FROM tbl_patients p INNER JOIN tbl_appointments a ON p.PatientID = a.PatientID WHERE p.DoctorID=?';
+        const query = 'SELECT p.Name, a.* FROM tbl_patients p INNER JOIN tbl_appointments a ON p.PatientID = a.PatientID WHERE p.DoctorID=? ORDER BY a.AppointmentDateTime DESC';
         const values = [DoctorID];
         await pool.query(query, values, (err, rows) => {
             if (err) {
@@ -81,7 +81,7 @@ const MakePrescription = async (req, res) => {
 
     const { PatientID, PrescriptionData, Instructions, PrescriptionNotes } = req.body;
     const DateIssued = new Date().toISOString().slice(0, 19).replace('T',' '); // Current date in YYYY-MM-DD format
-    console.log(DateIssued)
+    console.log(PatientID)
     const DoctorID = req.user.DoctorId;
     const PrescriptionID = uuidv4(); // Generate a unique PrescriptionID
 
@@ -134,7 +134,7 @@ const AllPrescriptions = async (req, res) => {
                 res.status(500).json({ error: "Internal server error" });
                 return;
             }
-            console.log(rows)
+            //console.log(rows)
             res.status(200).json(rows);
         })
     } catch (error) {
@@ -177,7 +177,7 @@ const UpdateAppointment = async (req, res) => {
                 return res.status(500).json({ error: 'Failed to update appointment' }); // Send error response to client
             }
 
-            console.log(`Updated ${results.affectedRows} rows`);
+           // console.log(`Updated ${results.affectedRows} rows`);
             return res.status(200).json({ message: 'Appointment updated successfully' });
         });
     } catch (error) {

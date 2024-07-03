@@ -13,9 +13,9 @@ const Patient = ({ patient }) => {
   };
   //console.log('patient ', patient)
   return (
-    <div className="flex flex-col border rounded-lg shadow-md p-4 mb-4 text-white">
+    <div className="flex flex-col border bg-lime-300/40 rounded-lg shadow-md p-4 mb-4 text-white">
       <div className='flex flex-col'>
-        <h3 className="text-sm font-bold mb-2">{patient.Name}</h3>
+        <h3 className="text-lg font-medium mb-2">{patient.Name}</h3>
         <ul className="list-none pl-4">
           <li>
             <span className="font-bold mr-2">Patient Address:</span>

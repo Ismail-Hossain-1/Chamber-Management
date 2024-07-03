@@ -9,7 +9,8 @@ const PatientList = () => {
   const [allpatients, setAllpatients] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Track loading state
   const token = localStorage.getItem('token');
-  
+
+
 
   useEffect(() => {
     const getAppointments = async () => {
@@ -27,19 +28,34 @@ const PatientList = () => {
     getAppointments();
   }, [token]);
 
-  //console.log(allpatients);
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const filterSearch = allpatients.filter(patient => {
+    return patient.Name.toLowerCase().includes(searchTerm.toLowerCase());
+  })
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
 
   return (
-    <div>
+    <div style={{ height: '77vh' }}>
 
       PatientList
 
       <div className=' flex flex-row  '>
-        <div className=' w-10/12 PatientList rounded-lg backdrop-blur-lg bg-opacity-0 overflow-y-auto text-white m-10 p-10'>
-          {allpatients.map((patient) => (
-            <Patient key={patient.PatientId} patient={patient} /> // Pass patient data to Patient component
-          ))}
+        <div className=' w-10/12 PatientList rounded-lg backdrop-blur-lg bg-opacity-0 overflow-y-auto text-white mt-3 p-10'>
+          <div className='pb-4 '>
+            <input type="text" value={searchTerm}
+              placeholder='Enter Name'
+              onChange={handleSearchChange}
+              className='input w-full text-stone-600 font-bold' />
+          </div>
+          <div>
+            {isLoading ? <div className='flex flex-col'> Loading Patients ... <span className='loading-spinner loading-lg'></span></div> :
+              filterSearch.length > 0 ? filterSearch.map((patient) => (
+                <Patient key={patient.PatientId} patient={patient} /> // Pass patient data to Patient component
+              )) : <div className='items-center flex flex-col bg-rose-300 m-4 p-4 rounded-md font-bold'><p>No Names Found</p></div>
+            }
+          </div>
 
         </div>
 

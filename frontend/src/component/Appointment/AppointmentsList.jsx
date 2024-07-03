@@ -5,17 +5,14 @@ import Appointment from './Appointment';
 const AppointmentsList = () => {
   const { isLoading, appointments } = useGetAppointments();
 
-  // console.log(appointments); // This will now log appointments after they're fetched
-  const [searchTerm, setSearchTerm] = useState('');
 
-  // Function to handle search input change
+
+
+  const [searchTerm, setSearchTerm] = useState('');
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
-
-  // Function to filter appointments based on search term
   const filteredAppointments = appointments.filter(appointment => {
-    // Filter by Name or any other relevant fields
     return appointment.Name.toLowerCase().includes(searchTerm.toLowerCase());
   });
 

@@ -64,9 +64,8 @@ const AddAppointment = () => {
                     <label htmlFor="Status" className="block text-sm font-medium text-gray-700">Status</label>
                     <select id="Status" name="Status" value={formData.Status} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full md:w-80 lg:w-96">
                         <option value="">Select Status</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="canceled">Canceled</option>
-                        <option value="rescheduled">Rescheduled</option>
+                        <option value="pending">Pending</option>
+                        <option value="done">Done</option>
                     </select>
                 </div>
                 <div>

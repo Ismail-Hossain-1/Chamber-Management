@@ -3,7 +3,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 
 const Prescription = ({ prescription }) => {
-  console.log('prescription date: ', prescription.DateIssued);
+  console.log('prescription ', prescription.PatientID);
   const utcDate = new Date(prescription.DateIssued);
 
 // Convert UTC to Dhaka local time
@@ -37,7 +37,7 @@ const localDateIssued = utcDate.toLocaleString('en-BD', { hour12: true });
             className="btn w-full bg-sky-800  text-white py-2 px-4 rounded-md hover:bg-blue-600/60 focus:outline-none focus:bg-blue-600"
 
           >
-            {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+            {({ loading }) => (loading ? 'Generating PDF...' : 'Download Prescription')}
           </PDFDownloadLink>
         </div>
       </div>

@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RiAddLine } from 'react-icons/ri';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { useAuthContext } from '../../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const MakePrescription = () => {
+
+    const {patientId}= useAuthContext();
+    console.log(patientId); 
     const [prescriptionData, setPrescriptionData] = useState([
         {
             MedicationName: '',
@@ -18,6 +23,7 @@ const MakePrescription = () => {
         },
     ]);
 
+    //const [data, setData]= useState([prescriptionData]);
 
     const handleInputChange = (e, index, name) => {
         const { value } = e.target;
@@ -54,7 +60,7 @@ const MakePrescription = () => {
 
         try {
             const res = await axios.post('/doctor/makeprescription', {
-                PatientID: '768abc2c-9d0d-4c30-b9c9-698ffd', // Replace with actual PatientID
+                PatientID: patientId,
                 PrescriptionData: prescriptionData,
                 Instructions: prescriptionData[0].Instructions,
                 PrescriptionNotes: prescriptionData[0].PrescriptionNotes
@@ -67,6 +73,16 @@ const MakePrescription = () => {
         }
     };
 
+    const navigate= useNavigate();
+    if(!patientId){
+        
+        useEffect(()=>{ navigate('/appointments')},[]);
+        return(
+             toast.error('No patient Selected')
+             
+            )
+        
+    }
     return (
 
         <div className="max-w-full rounded pr-10 mx-auto mt-8 bg-clip-padding bg-gray-600/60 backdrop-filter backdrop-blur-lg bg-opacity-0">
@@ -187,7 +203,7 @@ const MakePrescription = () => {
                         fileName="prescription.pdf"
                         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                     >
-                        {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+                        {({ loading }) => (loading ? 'Generating PDF...' : 'Download Prescrioption PDF')}
                     </PDFDownloadLink>
                 </div>
             </form>
