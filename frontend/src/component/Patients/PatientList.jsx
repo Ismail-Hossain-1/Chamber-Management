@@ -60,9 +60,9 @@ const PatientList = () => {
         </div>
 
 
-        <div className='w-80 h-32 bg-black/80 text-white m-10'>
+        {/* <div className='w-80 h-32 bg-black/80 text-white m-10'>
           This is
-        </div>
+        </div> */}
       </div>
 
     </div>

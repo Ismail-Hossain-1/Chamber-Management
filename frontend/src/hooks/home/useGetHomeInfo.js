@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuthContext } from '../../context/authContext';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const useGetHomeInfo = () => {
 

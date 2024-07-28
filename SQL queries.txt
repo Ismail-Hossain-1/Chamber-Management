@@ -10,6 +10,8 @@ CREATE TABLE tbl_Doctors(
     Qualifications VARCHAR(100),
     Phone VARCHAR(14),
     Email VARCHAR(30),
+    EmailConfirmed boolean DEFAULT false,
+    Password varchar(30),
     Address TEXT,
     ClinicName VARCHAR(50),
     ClinicAddress TEXT,
@@ -21,11 +23,16 @@ CREATE TABLE tbl_Doctors(
 
 CREATE TABLE tbl_Patients(
     PatientId VARCHAR(30) PRIMARY KEY,
+    DoctorID  VARCHAR(30),
     Name VARCHAR(30) NOT NULL,
+	Age int,
+    Registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     DateOfBirth DATE,
     Phone varchar(15),
     Email varchar(30),
-    Address Text
+    Address Text,
+
+    FOREIGN KEY(DoctorID) REFERENCES tbl_doctors(DoctorId)
 );
 
 ALTER TABLE
@@ -42,8 +49,9 @@ CREATE TABLE tbl_appointments (
     PatientID varchar(30),
     DoctorID varchar(30),
     AppointmentDateTime DATETIME,
-    Status enum('pending', 'done') DEFAULT 'confirmed',
+    Status enum('pending', 'done') DEFAULT 'pending',
     Notes TEXT,
+
     FOREIGN KEY (PatientID) REFERENCES tbl_patients(PatientId),
     FOREIGN KEY (DoctorID) REFERENCES tbl_doctors(DoctorId)
 );
@@ -61,6 +69,7 @@ CREATE TABLE tbl_prescription (
     Status ENUM('Active', 'Expired', 'Filled'),
     Instructions TEXT,
     PrescriptionNotes TEXT,
+
     FOREIGN KEY (PatientID) REFERENCES tbl_patients(PatientId),
     FOREIGN KEY (DoctorID) REFERENCES tbl_doctors(DoctorId)
 );

@@ -59,16 +59,21 @@ const Navbar = ({ isloggedin }) => {
                     className="absolute right-4 top-4 cursor-pointer text-white/70"
                 />
 
-                <div className='box-content bg-slate-300 pb-10'> <h1 className='pt-20 pl-20'>{isloggedin.user.Name}</h1></div>
+                <div className="box-content bg-slate-300 pb-10">
+                    <p className="text-xl text-center font-serif font-bold text-gray-500 mb-2 pt-2" style={{ fontFamily: '"Lucida Handwriting", cursive' }}>My Chamber</p>
+                    <h1 className="text-lg text-center text-gray-700">{isloggedin.user.Name}</h1>
+                </div>
 
-                <nav className='mt-8 ml-4 mb-4 flex flex-col p-10 text-wrap text-orange-100 font-bold'>
-                    <Link to='/' className='mb-4 ' >Dashboard</Link>
-                    <Link to='/appointments' className='mb-4 '>Appointments</Link>
-                    <Link to='/patients' className='mb-4 '>Patients</Link>
-                    <Link to='/prescriptions' className='mb-4 '>Prescriptions</Link>
+                <nav className='mt-8 ml-4 mb-4 flex flex-col p-10 text-wrap text-orange-100 font-bold w-full'>
+                    <Link to='/' className='mb-4  bg-emerald-200/20 rounded p-1' >Dashboard</Link>
+                    <Link to='/appointments' className='mb-4 bg-emerald-200/20 rounded p-1'>Appointments</Link>
+                    <Link to='/patients' className='mb-4 bg-emerald-200/20 rounded p-1'>Patients</Link>
+                    <Link to='/prescriptions' className='mb-4 bg-emerald-200/20 rounded p-1'>Prescriptions</Link>
+                    <Link to='/profile' className='mb-4 bg-emerald-200/20 rounded p-1 '>Profile</Link>
+                    <Link to= '/assistant' className='mb-4 bg-emerald-200/20 rounded p-1 '>Assistant</Link>
                 </nav>
 
-               <div className='items-center ml-6 bg-fuchsia-500/50 m-3 p-2 w-2/12 rounded'> <Logout /> </div>
+                <div className='items-center ml-6 bg-fuchsia-500/50 m-3 p-2 w-2/12 rounded'> <Logout /> </div>
             </div>
 
         </div>

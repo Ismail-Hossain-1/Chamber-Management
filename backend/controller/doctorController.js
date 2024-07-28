@@ -11,9 +11,9 @@ const AddPatient = async (req, res) => {
         const { Name, Age, DateOfBirth, Phone, Email, Address } = req.body.patient;
         const DoctorID = req.user.DoctorId;
 
-        const PatientId = uuidv4();
+        const PatientId = uuidv4().replace(/-/g, '').substring(0, 30);
 
-
+        console.log(PatientId)
         const query = `INSERT INTO tbl_patients (PatientId, Name, Age, DateOfBirth, Phone, Email, Address, DoctorID) VALUES (?, ?, ?, ?, ?, ?,?, ?)`;
         const values = [PatientId, Name, Age, DateOfBirth, Phone, Email, Address, DoctorID];
 
@@ -34,7 +34,7 @@ const AddPatient = async (req, res) => {
 
 const AddAppoinment = async (req, res) => {
     const { PatientID, AppointmentDateTime, Status, Notes } = req.body;
-    const AppointmentID = uuidv4();
+    const AppointmentID = uuidv4().replace(/-/g, '').substring(0, 30);
     const DoctorID = req.user.DoctorId;
     //console.log(req.body);
 
@@ -57,7 +57,7 @@ const AddAppoinment = async (req, res) => {
 
 const AllAppoinments = async (req, res) => {
     const DoctorID = req.user.DoctorId;
-   // console.log(req.body);
+    // console.log(req.body);
     try {
         const query = 'SELECT p.Name, a.* FROM tbl_patients p INNER JOIN tbl_appointments a ON p.PatientID = a.PatientID WHERE p.DoctorID=? ORDER BY a.AppointmentDateTime DESC';
         const values = [DoctorID];
@@ -80,10 +80,10 @@ const MakePrescription = async (req, res) => {
     //console.log(req.body); // Check backend request body
 
     const { PatientID, PrescriptionData, Instructions, PrescriptionNotes } = req.body;
-    const DateIssued = new Date().toISOString().slice(0, 19).replace('T',' '); // Current date in YYYY-MM-DD format
-    console.log(PatientID)
+    const DateIssued = new Date().toISOString().slice(0, 19).replace('T', ' '); // Current date in YYYY-MM-DD format
+
     const DoctorID = req.user.DoctorId;
-    const PrescriptionID = uuidv4(); // Generate a unique PrescriptionID
+    const PrescriptionID = uuidv4().replace(/-/g, '').substring(0, 30); // Generate a unique PrescriptionID
 
     if (!Array.isArray(PrescriptionData) || PrescriptionData.length === 0) {
         return res.status(400).send({ message: 'Invalid PrescriptionData format' });
@@ -123,7 +123,7 @@ const MakePrescription = async (req, res) => {
 const AllPrescriptions = async (req, res) => {
     try {
         const DoctorID = req.user.DoctorId;
-        console.log('Doctor: ',DoctorID)
+       // console.log('Doctor: ', DoctorID)
         const query = `SELECT p.Name, p.Address, p.Email, pres.* 
             FROM tbl_patients p INNER JOIN 
             tbl_prescription pres ON p.PatientID = pres.PatientID WHERE pres.DoctorID=? ORDER BY pres.DateIssued DESC`
@@ -144,7 +144,7 @@ const AllPrescriptions = async (req, res) => {
 
 const AllPatients = async (req, res) => {
     const DoctorID = req.user.DoctorId;
-    console.log(DoctorID);
+    //console.log(DoctorID);
 
     try {
         const query = 'SELECT * FROM tbl_patients WHERE DoctorID= ? ORDER BY registration_date DESC;';
@@ -177,7 +177,7 @@ const UpdateAppointment = async (req, res) => {
                 return res.status(500).json({ error: 'Failed to update appointment' }); // Send error response to client
             }
 
-           // console.log(`Updated ${results.affectedRows} rows`);
+            // console.log(`Updated ${results.affectedRows} rows`);
             return res.status(200).json({ message: 'Appointment updated successfully' });
         });
     } catch (error) {
@@ -185,6 +185,31 @@ const UpdateAppointment = async (req, res) => {
     }
 }
 
+const AppTodo = async (req, res) => {
+    const query = `
+    SELECT p.Name, p.Address, p.Age, a.*
+    FROM tbl_patients p
+    INNER JOIN tbl_appointments AS a ON p.PatientID = a.PatientID
+    WHERE p.DoctorID = ? AND CAST(a.AppointmentDateTime AS DATE) = CURDATE()
+  `;
+    const DoctorID = req.user.DoctorId
+    const values = [DoctorID];
+    // console.log(pool.config)
+    try {
+        await pool.query(query, values, (err, rows) => {
+            if (err) {
+                console.error("Error agetting Appointments", err);
+                res.status(500).json({ error: "Internal server error" });
+                return;
+            }
+            //console.log("appointments ",rows)
+            console.log(DoctorID);
+            res.status(200).json(rows);
+        })
+    } catch (error) {
+        console.log(error);
+    }
+};
 module.exports = {
     AddPatient, AddAppoinment, AllAppoinments,
     MakePrescription, AllPrescriptions, AllPatients, UpdateAppointment
