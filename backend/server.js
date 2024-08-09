@@ -14,20 +14,20 @@ PORT= process.env.PORT || 3001
 app.use(express.json());
 
 const authRouter= require('./routes/authRoute')
-const doctor= require('./routes/doctorRoute');
-const quick= require('./routes/quickRoute');
+const doctorRouter= require('./routes/doctorRoute');
+const quickRouter= require('./routes/quickRoute');
+const emailVerifier= require('./utils/emailVerify')
 
 app.use('/api/auth', authRouter);
-app.use('/api/doctor', doctor);
-app.use('/api/doctor', quick);
+app.use('/api/doctor', doctorRouter);
+app.use('/api/doctor', quickRouter);
+app.use('/api', emailVerifier)
 
 
-console.log(new Date().toLocaleString().slice(0, 21));
 
 app.get('', (req, res)=>{
     res.json("Server Running");
 })
-
 
 
 app.listen(PORT, ()=>{

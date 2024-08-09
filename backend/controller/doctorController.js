@@ -123,7 +123,7 @@ const MakePrescription = async (req, res) => {
 const AllPrescriptions = async (req, res) => {
     try {
         const DoctorID = req.user.DoctorId;
-       // console.log('Doctor: ', DoctorID)
+        console.log('Doctor: ', DoctorID)
         const query = `SELECT p.Name, p.Address, p.Email, pres.* 
             FROM tbl_patients p INNER JOIN 
             tbl_prescription pres ON p.PatientID = pres.PatientID WHERE pres.DoctorID=? ORDER BY pres.DateIssued DESC`
@@ -144,7 +144,7 @@ const AllPrescriptions = async (req, res) => {
 
 const AllPatients = async (req, res) => {
     const DoctorID = req.user.DoctorId;
-    //console.log(DoctorID);
+    console.log(DoctorID);
 
     try {
         const query = 'SELECT * FROM tbl_patients WHERE DoctorID= ? ORDER BY registration_date DESC;';
