@@ -20,7 +20,7 @@ router.post('/send-verification', async (req, res) => {
     const token = jwt.sign({ email }, process.env.JWT_TOKEN, { expiresIn: '1h' });
 
     // Verification link
-    const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
+    const verificationUrl = `${process.env.FRONTEND_HTTPS}/verify-email?token=${token}`;
 
     // Send the email
     try {
