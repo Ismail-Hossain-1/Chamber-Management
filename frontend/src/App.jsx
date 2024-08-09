@@ -25,7 +25,7 @@ import EmailVerificationPage from './pages/auth/EmailVerificationPage';
 
 //const token = localStorage.getItem('token');
 
-axios.defaults.baseURL = 'http://localhost:3000/api/';
+axios.defaults.baseURL = 'https://chamber-management.vercel.app/api/';
 //axios.defaults.headers.common['Authorization'] = token;
 //axios.defaults.headers.post['Content-Type'] = 'application/json';
 
