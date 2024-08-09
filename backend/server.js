@@ -3,7 +3,7 @@ const app= express();
 require('dotenv').config();
 const cors= require('cors');
 app.use(cors({
-    origin:['http://localhost:5173','https://chamber-management.vercel.app']
+    origin:['http://localhost:5173','https://mychamber.vercel.app']
 }))
 
 
