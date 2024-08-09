@@ -78,7 +78,7 @@ const PDFDocument = ({ prescriptionData, instructions, prescriptionNotes }) => (
                             <Text style={styles.tableCell}> 1</Text>
                             <Text style={styles.tableCell}>123</Text> {/* Replace with actual patient ID */}
                             <Text style={styles.tableCell}>456</Text> {/* Replace with actual doctor ID */}
-                            <Text style={styles.tableCell}>2024-06-02</Text> {/* Replace with actual date issued */}
+                            <Text style={styles.tableCell}>2024-07-02</Text> {/* Replace with actual date issued */}
                         </View>
                     {/* // ))} */}
                 </View>

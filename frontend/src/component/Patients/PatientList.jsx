@@ -39,10 +39,8 @@ const PatientList = () => {
   return (
     <div style={{ height: '77vh' }}>
 
-      PatientList
-
       <div className=' flex flex-row  '>
-        <div className=' w-10/12 PatientList rounded-lg backdrop-blur-lg bg-opacity-0 overflow-y-auto text-white mt-3 p-10'>
+        <div className=' w-full PatientList rounded-lg backdrop-blur-lg bg-opacity-0 overflow-y-auto text-white mt-3 p-10'>
           <div className='pb-4 '>
             <input type="text" value={searchTerm}
               placeholder='Enter Name'
@@ -57,12 +55,7 @@ const PatientList = () => {
             }
           </div>
 
-        </div>
-
-
-        {/* <div className='w-80 h-32 bg-black/80 text-white m-10'>
-          This is
-        </div> */}
+        </div>   
       </div>
 
     </div>

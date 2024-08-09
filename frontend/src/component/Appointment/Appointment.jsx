@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/authContext';
@@ -29,12 +29,10 @@ const Appointment = ({ appointment }) => {
     setIsEditing(false);
   };
 
-  const appointmentBg = appointment.Status === 'pending' ? 'bg-red-200' : 'bg-green-200';
   const handleSaveEdit = async () => {
     try {
       const { Notes, Status } = editableAppointment;
       const response = await axios.put('/doctor/updateappointment', { Notes, Status, AppointmentID });
-
       if (response.status === 200) {
         setEditableAppointment(prevState => ({
           ...prevState,
@@ -52,6 +50,8 @@ const Appointment = ({ appointment }) => {
       setEditableAppointment(appointment);
     }
   };
+  const appointmentBg = editableAppointment.Status === 'pending' ? 'bg-red-200' : 'bg-green-200';
+
 
 
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const Appointment = ({ appointment }) => {
 
 
   return (
-    <div className={`${appointmentBg} shadow-lg rounded-lg overflow-hidden m-2`}>
+    <div className={`${appointmentBg} shadow-lg rounded-lg overflow-hidden m-2 `}>
       <div>
         <div className="px-6 py-4">
           <div className="flex items-center justify-between mb-4">
@@ -132,8 +132,8 @@ const Appointment = ({ appointment }) => {
                     Edit
                   </button>
                 </div>
-                { editableAppointment.Status ==='done' && <div className=' mt-4'>
-                  <button onClick={()=>handlePrescriptionClick(PatientID)} className='bg-blue-600 py-2 px-4 rounded-md' >
+                {editableAppointment.Status === 'done' && <div className=' mt-4'>
+                  <button onClick={() => handlePrescriptionClick(PatientID)} className='bg-blue-600 py-2 px-4 rounded-md' >
                     Make Prescriptions
                   </button>
                 </div>}

@@ -16,11 +16,11 @@ const useLogout = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:3000/api/auth/logout');
+            const res = await axios.post('/auth/logout');
         
     
             const data = res.data;
-            console.log(data.token);
+            //console.log(data.token);
             if (data.error) throw new Error(data.error);
 
             localStorage.removeItem('auth-user');

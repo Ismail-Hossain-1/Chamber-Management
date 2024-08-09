@@ -3,12 +3,16 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 
 const Prescription = ({ prescription }) => {
-  console.log('prescription ', prescription.PatientID);
+ // console.log('prescription ', prescription.PatientID);
   const utcDate = new Date(prescription.DateIssued);
 
 // Convert UTC to Dhaka local time
 utcDate.setHours(utcDate.getHours() + 6); // Adding UTC offset for Dhaka (UTC+6:00)
 
+//console.log(prescription.Email[0])
+//prescription.Email.slice(1)
+let email= prescription.Email;
+  email= '*'+prescription.Email.slice(1)
 // Format local time with AM/PM
 const localDateIssued = utcDate.toLocaleString('en-BD', { hour12: true });
   return (
@@ -25,7 +29,7 @@ const localDateIssued = utcDate.toLocaleString('en-BD', { hour12: true });
             </li>
             <li>
               <span className="font-base mr-2">Email: </span>
-              {prescription.Email}
+              {email}
             </li>
           </ul>
         </div>

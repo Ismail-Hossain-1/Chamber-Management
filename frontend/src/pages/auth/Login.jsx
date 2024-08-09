@@ -14,7 +14,7 @@ function Login() {
 
       //  await login(email, password);
         setTimeout(
-            await login(email, password), 3000
+            await login(email, password), 2000
         )
 
     }

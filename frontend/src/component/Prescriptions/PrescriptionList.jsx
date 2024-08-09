@@ -12,7 +12,7 @@ const PrescriptionList = () => {
       setIsLoading(true); // Set loading state to true
       try {
         const response = await axios.get('/doctor/allprescriptions'); // Replace with your API endpoint
-        console.log(response)
+        //console.log(response)
         setAllprescriptions(response.data);
       } catch (error) {
         toast.error('Error fetching Prescriptions:', error);
@@ -38,7 +38,7 @@ const PrescriptionList = () => {
   });
 
   return (
-    <div className='flex flex-col w-full PatientList rounded-lg backdrop-blur-lg bg-gray-600/50 bg-opacity-0 overflow-y-auto text-white m-10 p-10' style={{ height: '76vh' }}>
+    <div className='flex flex-col w-full PatientList rounded-lg backdrop-blur-lg bg-gray-600/70 bg-opacity-0 overflow-y-auto text-white m-10 p-10' style={{ height: '76vh' }}>
       <div className="mb-4">
         <input
           type="text"

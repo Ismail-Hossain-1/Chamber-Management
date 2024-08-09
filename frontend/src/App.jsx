@@ -21,12 +21,13 @@ import EditableAppointment from './component/Appointment/EditableAppointment'
 import Profile from './pages/home/Profile';
 import Chatbox from './sidebar/chat/Chatbox'
 import VoiceAssistant from './pages/home/VoiceAssistant';
+import EmailVerificationPage from './pages/auth/EmailVerificationPage';
 
 //const token = localStorage.getItem('token');
 
 axios.defaults.baseURL = 'http://localhost:3000/api/';
 //axios.defaults.headers.common['Authorization'] = token;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+//axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 function App() {
   const { authUser } = useAuthContext();
@@ -78,6 +79,7 @@ function App() {
           <Route path='/prescriptions/make' element={authUser ? <MakePrescription /> : <Navigate to='/login' />} />
           <Route path='/profile' element={authUser ? <Profile /> : <Navigate to='/login' />} />
           <Route path='/assistant' element={authUser ? <VoiceAssistant /> : <Navigate to='/login' />} />
+          <Route path='/verify-email' element={<EmailVerificationPage />} />
         </Routes>
       </div>
 
@@ -92,7 +94,11 @@ function App() {
           </button>
         </div>
         {isChatExpanded && (
-          <div className='fixed top-14 h-full right-10 bg-white rounded-lg overflow-y-auto border-2 shadow-xl shadow-black-500 border-black' style={{ width: '50vh', height: '40vh' }}>
+          <div className='fixed top-14 h-full right-10 bg-white rounded-lg overflow-y-auto border-2 shadow-xl shadow-black-500 border-black'
+            style={{
+              width: '50vh',
+              height: '40vh'
+            }}>
             <div className='bg-white p-4  rounded-lg'>
               <Chatbox messages={messages} setMessages={setMessages} handleMessageSubmit={handleMessageSubmit} inputMessage={inputMessage} setInputMessage={setInputMessage} />
             </div>

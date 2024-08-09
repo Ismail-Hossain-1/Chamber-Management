@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/authContext';
 import AppointmentsList from '../../component/Appointment/AppointmentsList';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Appointments = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Appointments = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/doctor/apptodo');
-                console.log(response.data.apptodo)
+                //console.log(response.data.apptodo)
                 if (response.data.apptodo) {
                     setTodo(response.data.apptodo);
                 }
@@ -28,9 +29,10 @@ const Appointments = () => {
 
     const handleSave = async () => {
         //alert(todo)
-        console.log(todo)
+        //console.log(todo)
         const response = await axios.post('/doctor/apptodo', { apptodo: todo })
-        console.log(response.data.msg);
+        //console.log(response.data.msg);
+        toast.success('Saved')
     }
     const handleChange = (e) => {
         setTodo(e.target.value)

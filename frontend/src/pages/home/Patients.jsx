@@ -3,6 +3,7 @@ import AddPatient from '../../component/Patients/Addpatient';
 import { useNavigate } from 'react-router-dom';
 import PatientList from '../../component/Patients/PatientList';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Patients = () => {
     const navigate = useNavigate();
@@ -10,10 +11,11 @@ const Patients = () => {
     const [todo, setTodo] = useState('');
 
     const handleSave = async () => {
-        alert("Saving")
-        console.log(todo)
+        //alert("Saving")
+        //console.log(todo)
         const response = await axios.post('/doctor/pattodo', { pattodo: todo })
-        console.log(response);
+       // console.log(response);
+        toast.success(response.data)
     }
     useEffect(() => {
         const fetchData = async () => {
@@ -38,7 +40,7 @@ const Patients = () => {
 
     return (
         <div className='flex flex-col'>
-            <h1 className='text-white'>Patients</h1>
+            
 
             <div className='flex flex-row gap-5'>
                 <div className='w-8/12' style={{ height: "77vh" }}>

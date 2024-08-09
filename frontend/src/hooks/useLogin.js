@@ -1,6 +1,7 @@
 import { useState } from "react"
 import toast from 'react-hot-toast'
 import { useAuthContext } from "../context/authContext";
+import axios from "axios";
 
 
 
@@ -15,15 +16,13 @@ const useLogin = () => {
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:3000/api/auth/login', {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-             });
-        
-    
-            const data = await res.json();
-           // console.log(data.token);
+            const res = await axios.post('/auth/login', { email, password });
+
+
+            // const data = await res.json();
+            const data = res.data;
+
+            //console.log(data.token);
             if (data.error) throw new Error(data.error);
 
             localStorage.setItem('auth-user', JSON.stringify(data));
@@ -31,7 +30,7 @@ const useLogin = () => {
             localStorage.setItem('token', data.token);
             setAuthUser(data);
         } catch (error) {
-           toast.error(error.message);
+            toast.error(error.message);
         } finally { setLoading(false); }
     }
 

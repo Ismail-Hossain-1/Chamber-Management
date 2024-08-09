@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const MakePrescription = () => {
 
     const {patientId}= useAuthContext();
-    console.log(patientId); 
+    //console.log(patientId); 
     const [prescriptionData, setPrescriptionData] = useState([
         {
             MedicationName: '',
@@ -56,7 +56,7 @@ const MakePrescription = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(prescriptionData);
+       // console.log(prescriptionData);
 
         try {
             const res = await axios.post('/doctor/makeprescription', {
@@ -65,7 +65,7 @@ const MakePrescription = () => {
                 Instructions: prescriptionData[0].Instructions,
                 PrescriptionNotes: prescriptionData[0].PrescriptionNotes
             });
-            console.log(res.data);
+            //console.log(res.data);
             toast.success(res.data.message);
         } catch (error) {
             console.error('Error making prescription:', error);
@@ -171,7 +171,7 @@ const MakePrescription = () => {
                             name="Instructions"
                             value={prescriptionData[0].Instructions}
                             onChange={(e) => handleInputChange(e, 0, 'Instructions')}
-                            className="w-full rounded border border-gray-400 p-2"
+                            className="w-full rounded border border-gray-400 p-2 bg-gray-500 text-white"
                             rows="1"
                             placeholder="Enter instructions..."
                         ></textarea>
@@ -183,7 +183,7 @@ const MakePrescription = () => {
 
                             value={prescriptionData[0].PrescriptionNotes}
                             onChange={(e) => handleInputChange(e, 0, 'PrescriptionNotes')}
-                            className="w-full rounded border border-gray-400 p-2"
+                            className="w-full rounded border border-gray-400 p-2 bg-gray-500 text-white"
                             rows="1"
                             placeholder="Enter prescription notes..."
                         ></textarea>

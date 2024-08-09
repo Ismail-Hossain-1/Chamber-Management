@@ -35,7 +35,7 @@ const AddAppointment = () => {
         e.preventDefault();
         try {
             const response = await axios.post('/doctor/addappoinment', formData);
-            console.log(response.data); // Log the response for debugging or success handling
+           // console.log(response.data); // Log the response for debugging or success handling
 
             // Handle successful submission (e.g., clear form, show success message)
             setFormData({

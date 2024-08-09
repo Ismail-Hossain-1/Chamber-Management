@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useSignup from '../../hooks/useSignup'
 
 function SignUp() {
 
-
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
+
         name: '',
+        registration: '',
         speciality: '',
         qualifications: '',
         phone: '',
@@ -28,9 +30,10 @@ function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(userInfo);
-        await signup(userInfo);
+        await signup(formData,navigate);
         setFormData({
             name: '',
+            registration: '',
             speciality: '',
             qualifications: '',
             phone: '',
@@ -64,6 +67,22 @@ function SignUp() {
                                     type="text"
                                     required
                                     value={formData.name}
+                                    onChange={handleChange}
+                                    className="input-field bg-slate-400 p-2 rounded-lg"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="registration" className="block text-sm font-medium text-gray-700">
+                                Registration
+                            </label>
+                            <div className="mt-1 rounded-lg">
+                                <input
+                                    id="registration"
+                                    name="registration"
+                                    type="text"
+                                    required
+                                    value={formData.registration}
                                     onChange={handleChange}
                                     className="input-field bg-slate-400 p-2 rounded-lg"
                                 />

@@ -26,7 +26,7 @@ const AppointmentsList = () => {
           placeholder="Search by name..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="border bg-green-400/70 border-gray-300 rounded-md p-2 w-full text-white font-bold"
+          className="border bg-emerald-300 border-gray-300 rounded-md p-2 w-full text-white font-bold"
         />
       </div>
       {isLoading ? (
