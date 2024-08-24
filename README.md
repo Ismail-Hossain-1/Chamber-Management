@@ -47,6 +47,7 @@ To start the Vite development server, run:
 
 ```bash
 npm run dev
+```
 
 ## Backend Setup
 
@@ -57,7 +58,7 @@ The backend of **My Project** is built using [Node.js](https://nodejs.org/) and 
 - [Node.js](https://nodejs.org/) (v14 or later)
 - [npm](https://www.npmjs.com/) or [Yarn](https://classic.yarnpkg.com/) (for package management)
 
-### Installation
+###Installation
 
 1. **Navigate to the `backend` directory:**
 
