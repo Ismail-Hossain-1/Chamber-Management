@@ -37,7 +37,11 @@ The frontend is built using [Vite](https://vitejs.dev/), a modern build tool tha
     ```bash
     npm install
     ```
-
+3. Change settings in App.jsx and VoiceAssistant.jsx on Pages > Home directory:
+     ```
+     axios.defaults.baseURL = (To your backend localhost PORT/remote on App.jsx)
+     await axios.post(voice assistant PORT on loalhost/remote on VoiceAssistant.jsx) 
+     ```
 
    
 
