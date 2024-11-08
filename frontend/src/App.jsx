@@ -25,7 +25,7 @@ import EmailVerificationPage from './pages/auth/EmailVerificationPage';
 
 //const token = localStorage.getItem('token');
 
-axios.defaults.baseURL = 'https://mychamber-backend.vercel.app/api/';
+axios.defaults.baseURL = 'http://localhost:3000/api/';
 //axios.defaults.headers.common['Authorization'] = token;
 //axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -85,16 +85,16 @@ function App() {
 
       {authUser && <div className=''>
 
-        <div className='fixed top-5 right-10 z-50'>
+        <div className='fixed bottom-5 right-10 z-50'>
           <button
             onClick={toggleExpanded}
-            className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none'
+            className='bg-white text-black py-2 px-4 rounded-lg shadow-md focus:outline-none'
           >
             {isChatExpanded ? <div className='flex flex-row gap-52'>{<TbLayoutSidebarRightCollapseFilled size={22} />}Hide Chat</div> : <div className='flex flex-row gap-3'>{<TbLayoutNavbarExpandFilled size={22} />}Open Chat</div>}
           </button>
         </div>
         {isChatExpanded && (
-          <div className='fixed top-14 h-full right-10 bg-white rounded-lg overflow-y-auto border-2 shadow-xl shadow-black-500 border-black'
+          <div className='fixed bottom-28 h-full right-10 bg-white rounded-lg overflow-y-auto border-2 shadow-xl shadow-black-500 border-black'
             style={{
               width: '50vh',
               height: '40vh'

@@ -27,7 +27,7 @@ const Chatbox = ({ messages, setMessages, handleMessageSubmit, inputMessage, set
 
     setMessages([...messages, newMessage]);
 
-    const response = await axios.post('https://my-chamber-ai-backend.vercel.app/api/chat', { prompt: inputMessage, doctor: doctor })
+    const response = await axios.post('http://127.0.0.1:5001/api/chat', { prompt: inputMessage, doctor: doctor })
     //console.log(response);
     const res = {
       text: response.data,
@@ -43,7 +43,9 @@ const Chatbox = ({ messages, setMessages, handleMessageSubmit, inputMessage, set
     <div className="flex flex-col h-full max-w-md mx-auto bg-white rounded-lg  overflow-hidden">
       <div ref={messageContainerRef} className="flex-1 py-4 overflow-y-auto" style={{ minHeight: '0' }}>
         {messages.length === 0 ? (
-          <p className="text-center text-gray-400">Nothing to show here <br/>Chat Powered by Gemini </p>
+          <p className="text-center text-gray-400">Nothing to show here <br/>
+          {/* Chat Powered by Gemini */}
+           </p>
         ) : (
           messages.map((message, index) => (
             <div key={index} className={`flex justify-${message.type === 'sent' ? 'end' : 'start'} my-2`}>

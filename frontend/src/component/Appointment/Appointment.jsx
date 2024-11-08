@@ -50,7 +50,7 @@ const Appointment = ({ appointment }) => {
       setEditableAppointment(appointment);
     }
   };
-  const appointmentBg = editableAppointment.Status === 'pending' ? 'bg-red-200' : 'bg-green-200';
+  const appointmentBg = editableAppointment.Status === 'pending' ? 'bg-red-200' : 'bg-white';
 
 
 

@@ -31,7 +31,7 @@ const Navbar = ({ isloggedin }) => {
     //console.log(isloggedin);
 
     return (
-        <div className={`lg:w-48 sm:w-32 flex flex-col justify-between p-4 shadow-sm ${!nav ? 'fixed left-10 top-0 z-10' : ''}`}>
+        <div className={`lg:w-48 sm:w-32 flex flex-col justify-between p-4 shadow-sm ${!nav ? 'fixed left-0 top-0 z-10' : ''}`}>
 
             <div className="flex ">
                 <div onClick={() => setNav(!nav)} className={`cursor-pointer text-white bg-white/30  ${nav ? "hidden" : ""} `}>
@@ -40,7 +40,7 @@ const Navbar = ({ isloggedin }) => {
             </div>
 
             {nav ? (
-                <div className="fixed rounded-sm h-screen z-10 top-0 left-0"></div>
+                <div className="fixed rounded-sm h-screen z-0 top-0 left-0"></div>
             ) : (
                 ""
             )}
@@ -49,14 +49,14 @@ const Navbar = ({ isloggedin }) => {
             <div
                 className={
                     nav
-                        ? "fixed top-14 left-0 w-48 h-screen rounded bg-stone-600/60 z-10 duration-300 backdrop-filter backdrop-blur-sm "
+                        ? "fixed top-0 left-0 h-screen rounded bg-white text-black z-10 duration-300 backdrop-filter backdrop-blur-sm "
                         : "fixed top-10 left-[-100%] w-48 rounded-md h-screen bg-white z-10 duration-300"
                 }
             >
                 <AiOutlineClose
                     onClick={() => setNav(!nav)}
                     size={30}
-                    className="absolute right-4 top-4 cursor-pointer text-white/70"
+                    className="absolute right-0 top-12 cursor-pointer text-white"
                 />
 
                 <div className="box-content bg-slate-300 pb-10">
@@ -64,16 +64,16 @@ const Navbar = ({ isloggedin }) => {
                     <h1 className="text-lg text-center text-gray-700">{isloggedin.user.Name}</h1>
                 </div>
 
-                <nav className='mt-8 ml-4 mb-4 flex flex-col p-10 text-wrap text-orange-100 font-bold w-full'>
-                    <Link to='/' className='mb-4  bg-emerald-200/20 rounded p-1' >Dashboard</Link>
-                    <Link to='/appointments' className='mb-4 bg-emerald-200/20 rounded p-1'>Appointments</Link>
-                    <Link to='/patients' className='mb-4 bg-emerald-200/20 rounded p-1'>Patients</Link>
-                    <Link to='/prescriptions' className='mb-4 bg-emerald-200/20 rounded p-1'>Prescriptions</Link>
-                    <Link to='/profile' className='mb-4 bg-emerald-200/20 rounded p-1 '>Profile</Link>
-                    <Link to='/assistant' className='mb-4 bg-emerald-200/20 rounded p-1'>Assistant</Link>
+                <nav className='mt-8 mb-4 flex flex-col justify-center p-10 text-wrap text-black font-bold w-full'>
+                    <Link to='/' className='mb-4  bg-[#CBD5E1] rounded p-1 px-5' >Dashboard</Link>
+                    <Link to='/appointments' className='mb-4 bg-[#CBD5E1] rounded p-1 px-5 text-wrap'>Appointments</Link>
+                    <Link to='/patients' className='mb-4 bg-[#CBD5E1] rounded p-1 px-5'>Patients</Link>
+                    <Link to='/prescriptions' className='mb-4 bg-[#CBD5E1] rounded p-1 px-5'>Prescriptions</Link>
+                    <Link to='/profile' className='mb-4 bg-[#CBD5E1] rounded p-1 px-5'>Profile</Link>
+                    <Link to='/assistant' className='mb-4 bg-[#CBD5E1] rounded p-1 px-5'>Assistant</Link>
                 </nav>
 
-                <div className='items-center ml-6 bg-fuchsia-500/50 m-3 p-2 w-2/12 rounded'> <Logout /> </div>
+                <div className='items-center bottom-10 ml-6 bg-[#CBD5E1] m-3 p-1 w-2/12 rounded'> <Logout /> </div>
             </div>
 
         </div>

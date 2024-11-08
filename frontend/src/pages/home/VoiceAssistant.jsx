@@ -41,7 +41,7 @@ const VoiceAssistant = () => {
 
     const doctor = JSON.parse(localStorage.getItem('auth-user')).user;
     try {
-      const response = await axios.post('https://my-chamber-ai-backend.vercel.app/api/assistant', {
+      const response = await axios.post('http://localhost:5001/api/assistant', {
         text: text,
         langcode: 'en-gb', // Replace with your desired language code
         name: 'en-GB-Studio-B',
@@ -52,7 +52,7 @@ const VoiceAssistant = () => {
       const base64Audio = response.data.base64Audio;
       audioInstance.src = `data:audio/mpeg;base64, ${base64Audio}`;
       audioInstance.play().catch(err => {
-       
+
         console.error('playback failed', err);
       })
 
@@ -65,16 +65,16 @@ const VoiceAssistant = () => {
       console.error('Error fetching or playing TTS:', error);
       setIsSpeaking(false);
     }
-    
+
   };
 
   useEffect(() => {
     // Initialize SpeechRecognition object
     if (true) {
-      recognition.onstart = () => {
+      recognition.onstart = async () => {
         console.log('Voice recognition started.');
         setListening(true)
-        recognition.onresult = (event) => {
+        recognition.onresult = async (event) => {
           const transcript = event.results[event.results.length - 1][0].transcript;
           setRepeatedText(transcript);
           speakText(transcript); // Speak the recognized text
@@ -84,7 +84,7 @@ const VoiceAssistant = () => {
           console.error('Speech recognition error:', event.error);
           setListening(false);
         };
-        recognition.onend = () => {
+        recognition.onend = async () => {
           console.log('Voice recognition ended.');
           if (listening && !isSpeaking) {
             recognition.start(); // Restart recognition if it was previously active
@@ -103,19 +103,26 @@ const VoiceAssistant = () => {
   }, [isSpeaking, speakText, toggleRecognition]);
 
   return (
-    <div className='flex flex-col items-center bg-slate-700 rounded h-5/6 p-5 ' >
-      <button className='btn bg-cyan-300 text-2xl' onClick={toggleRecognition}>
-        {listening ? 'Stop Talking' : 'Start Talking'}
-      </button>
-      <div className='bg-indigo-300 rounded-full animate-pulse p-10'>{listening && !isSpeaking && <MdOutlineSettingsVoice className='size-20 text-lime-900' />}</div>
+    <div className='flex flex-col items-center  rounded h-5/6 p-5 ' >
+      <div className='w-52 h-56'>
+        <img src='/assistant.png' />
+      </div>
 
-     {listening && <div>
-        <p className='bg-emerald-200 p-4 m-5 rounded-md text-xl text-wrap'>
-          {repeatedText}</p>
-        {isSpeaking && <p className='text-white font-bold'>Agent Speaking...</p>}
-        <div className='bg-indigo-300 text-wrap relative rounded-full animate-pulse m-5 p-10'>{isSpeaking && < MdRecordVoiceOver className='size-20 text-lime-900' />}</div>
+      <div className='justify-center'>
+        <div className='bg-indigo-600 rounded-full animate-pulse p-6'>{listening && !isSpeaking && <MdOutlineSettingsVoice className='size-20' />}</div>
 
-      </div> }
+        <button className='btn bg-blue-400 hover:bg-blue-500 text-2xl' onClick={toggleRecognition}>
+          {listening ? 'Stop Talking' : 'Start Talking'}
+        </button>
+
+        {listening && <div>
+          <p className='bg-emerald-200 p-4 m-5 rounded-md text-xl text-wrap'>
+            {repeatedText}</p>
+          {isSpeaking && <p className='text-white font-bold'>Agent Speaking...</p>}
+          <div className=' text-wrap relative rounded-full animate-pulse m-5 p-10'>{isSpeaking && <div> < img className='size-20' src='/assistantGif.gif' /> </div>}</div>
+
+        </div>}
+      </div>
     </div>
   );
 };

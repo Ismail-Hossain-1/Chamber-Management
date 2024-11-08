@@ -85,11 +85,11 @@ const MakePrescription = () => {
     }
     return (
 
-        <div className="max-w-full rounded pr-10 mx-auto mt-8 bg-clip-padding bg-gray-600/60 backdrop-filter backdrop-blur-lg bg-opacity-0">
+        <div className="max-w-full rounded pr-10 mx-auto mt-8 bg-clip-padding bg-gray-100/60 backdrop-filter backdrop-blur-lg bg-opacity-0">
             <form onSubmit={handleSubmit} className="space-y-4 p-5 m-5 rounded-lg">
                 <table className="w-full rounded-lg">
                     <thead>
-                        <tr className="bg-green-300">
+                        <tr className="bg-blue-400">
                             <th className="border border-gray-400 px-4 py-2">Medication Name</th>
                             <th className="border border-gray-400 px-4 py-2">Dosage</th>
                             <th className="border border-gray-400 px-4 py-2">Frequency</th>
@@ -100,7 +100,7 @@ const MakePrescription = () => {
                     <tbody>
                         {prescriptionData.map((dose, index) => (
                             <tr key={index}>
-                                <td className="border border-gray-400 px-4 py-2">
+                                <td className="border border-gray-400 px-4 py-2 ">
                                     <input
                                         type="text"
                                         name="MedicationName"
@@ -108,7 +108,7 @@ const MakePrescription = () => {
                                         value={dose.MedicationName}
                                         onChange={(e) => handleInputChange(e, index, 'MedicationName')}
                                         placeholder=" eg- Paracetamol "
-                                        className="w-full rounded h-12 bg-zinc-700 p-2 text-white font-semibold text-wrap"
+                                        className="w-full rounded h-12 bg-gray-500 p-2 text-white font-semibold text-wrap"
                                     />
                                 </td>
                                 <td className="border border-gray-400 px-4 py-2">
@@ -118,7 +118,7 @@ const MakePrescription = () => {
                                         value={dose.Dosage}
                                         onChange={(e) => handleInputChange(e, index, 'Dosage')}
                                         placeholder="eg- 500mg"
-                                        className="w-full rounded h-12 bg-zinc-700 p-2 text-white font-semibold text-wrap"
+                                        className="w-full rounded h-12 bg-gray-500  p-2 text-white font-semibold text-wrap"
                                     />
                                 </td>
                                 <td className="border border-gray-400 px-4 py-2">
@@ -128,7 +128,7 @@ const MakePrescription = () => {
                                         value={dose.Frequency}
                                         onChange={(e) => handleInputChange(e, index, 'Frequency')}
                                         placeholder=" eg-Twice daily"
-                                        className="w-full rounded h-12 bg-zinc-700 p-2 text-white font-semibold text-wrap"
+                                        className="w-full rounded h-12 bg-gray-500  p-2 text-white font-semibold text-wrap"
                                     />
                                 </td>
                                 <td className="border border-gray-400 px-4 py-2">
@@ -138,7 +138,7 @@ const MakePrescription = () => {
                                         value={dose.Duration}
                                         onChange={(e) => handleInputChange(e, index, 'Duration')}
                                         placeholder="eg- 7 days"
-                                        className="w-full rounded h-12 bg-zinc-700 p-2 text-white font-semibold text-wrap"
+                                        className="w-full rounded h-12 bg-gray-500  p-2 text-white font-semibold text-wrap"
                                     />
                                 </td>
                                 <td className="border border-gray-400 px-4 py-2">
@@ -148,7 +148,7 @@ const MakePrescription = () => {
                                         value={dose.Status}
                                         onChange={(e) => handleInputChange(e, index, 'Status')}
                                         placeholder=" eg- Active or Expired"
-                                        className="w-full rounded h-12 bg-zinc-700 p-2 text-white font-semibold text-wrap"
+                                        className="w-full rounded h-12 bg-gray-500  p-2 text-white font-semibold text-wrap"
                                     />
                                 </td>
                             </tr>
@@ -159,19 +159,19 @@ const MakePrescription = () => {
                     <button
                         type="button"
                         onClick={handleAddDose}
-                        className="btn hover:bg-blue-600 text-xl focus:outline-none focus:bg-blue-600"
+                        className="btn bg-blue-500 hover:bg-white text-xl focus:outline-none focus:bg-blue-600"
                     >
                         <RiAddLine />
                     </button>
                 </div>
-                <div className='flex w-6/12 flex-col'>
+                <div className='flex w-6/12 flex-col '>
                     <div className="border border-gray-400 rounded-lg p-4 mb-4">
                         <h2 className="text-md font-semibold mb-2">Instructions:</h2>
                         <textarea
                             name="Instructions"
                             value={prescriptionData[0].Instructions}
                             onChange={(e) => handleInputChange(e, 0, 'Instructions')}
-                            className="w-full rounded border border-gray-400 p-2 bg-gray-500 text-white"
+                            className="w-full rounded border border-gray-400 p-2 bg-gray-500 text-white font-bold"
                             rows="1"
                             placeholder="Enter instructions..."
                         ></textarea>
@@ -183,7 +183,7 @@ const MakePrescription = () => {
 
                             value={prescriptionData[0].PrescriptionNotes}
                             onChange={(e) => handleInputChange(e, 0, 'PrescriptionNotes')}
-                            className="w-full rounded border border-gray-400 p-2 bg-gray-500 text-white"
+                            className="w-full rounded border border-gray-400 p-2 bg-gray-500 text-white font-bold"
                             rows="1"
                             placeholder="Enter prescription notes..."
                         ></textarea>

@@ -63,7 +63,7 @@ const Appointments = () => {
 
             <div >
 
-                <button onClick={() => navigate('/appointments/add')} className='btn mb-2 w-full'>Add Appointment</button>
+                <button onClick={() => navigate('/appointments/add')} className='btn mb-2 w-full bg-blue-500 hover:bg-blue-700'>Add Appointment</button>
             </div>
 
             <Outlet />

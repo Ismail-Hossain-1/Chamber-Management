@@ -17,12 +17,12 @@ let email= prescription.Email;
 const localDateIssued = utcDate.toLocaleString('en-BD', { hour12: true });
   return (
     <div>
-      <div className='flex flex-col border bg-blue-300/60 rounded-lg shadow-md p-4 mb-4 text-yellow-50'>
+      <div className='flex flex-col w-full  border bg-white rounded-lg shadow-md p-4 mb-4 text-black' style={{width:'50vw'}}>
         <div>
-          <div className='flex flex-row w-full gap-6 bg-gray-600/50 p-1 rounded-md'>
+          <div className='flex flex-row w-full gap-6 p-1 '>
             <h3 className="text-base font-medium mb-2">{prescription.Name}</h3> <p>Date issued: { localDateIssued}</p>
           </div>
-          <ul className="list-none pl-4 bg-gray-500/50 p-1 rounded-md">
+          <ul className="list-none pl-1  p-1">
             <li>
               <span className="font-base mr-2">Patient Address:</span>
               {prescription.Address}
@@ -34,11 +34,11 @@ const localDateIssued = utcDate.toLocaleString('en-BD', { hour12: true });
           </ul>
         </div>
 
-        <div className=''>
+        <div className=' pt-2'>
           <PDFDownloadLink
             document={<PDFDocument prescriptionData={[prescription]} instructions={prescription.Instructions} prescriptionNotes={prescription.PrescriptionNotes} />}
             fileName="prescription.pdf"
-            className="btn w-full bg-sky-800  text-white py-2 px-4 rounded-md hover:bg-blue-600/60 focus:outline-none focus:bg-blue-600"
+            className="btn w-full bg-blue-500  text-white pt- py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
 
           >
             {({ loading }) => (loading ? 'Generating PDF...' : 'Download Prescription')}

@@ -13,7 +13,7 @@ const Patient = ({ patient }) => {
   };
   //console.log('patient ', patient)
   return (
-    <div className="flex flex-col border bg-lime-500/80 rounded-lg shadow-md p-4 mb-4 text-white">
+    <div className="flex flex-col border bg-white rounded-lg shadow-md p-4 mb-4 text-slate-500">
       <div className='flex flex-col'>
         <p className='flex flex-row justify-between items-center'>
           <h3 className="text-lg font-medium mb-2">{patient.Name}</h3>
@@ -44,7 +44,7 @@ const Patient = ({ patient }) => {
         </ul>
       </div>
 
-      <button className='btn' onClick={() => handleClick(patient.PatientId)}>ADD Appointment</button>
+      <button className='btn bg-blue-500 hover:bg-blue-700' onClick={() => handleClick(patient.PatientId)}>ADD Appointment</button>
     </div>
   );
 };

@@ -61,8 +61,10 @@ const Patients = () => {
 
             </div>
 
-            <button onClick={() => navigate('/patients/add')} className='btn w-full bg-blue-200 mt-6'>Add Patient</button>
+            <div className='pb-0'>
 
+            <button onClick={() => navigate('/patients/add')} className='btn w-full h-full bg-blue-500 mt-20 hover:bg-blue-700'>Add Patient</button>
+            </div>
         </div>
     )
 }

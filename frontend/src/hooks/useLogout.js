@@ -16,7 +16,7 @@ const useLogout = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post('/auth/logout');
+            const res = await axios.post('http://localhost:3000/api/auth/logout');
         
     
             const data = res.data;

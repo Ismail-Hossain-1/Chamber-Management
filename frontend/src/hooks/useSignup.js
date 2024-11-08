@@ -20,14 +20,18 @@ function useSignup() {
 
         setLoading(true);
         try {
-            const response = await axios.post('/auth/register',{
+            const response = await fetch('http://localhost:3000/api/auth/register', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
                     name, registration, speciality, qualifications, phone,
                     email, password, address, clinicAddress, availability, fees
-                });
-            const emailVerify = await axios.post('/send-verification', { email: email })
+                })
+            });
+            const emailVerify = await axios.post('http://localhost:3000/api//send-verification', { email: email })
             console.log(emailVerify)
-            //const data = await response.json();
-            const data= response.data;
+            const data = await response.json();
+            
             if (data.error) {
                 throw new Error(data.error);
             }

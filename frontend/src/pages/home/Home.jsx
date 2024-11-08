@@ -47,11 +47,11 @@ const Home = () => {
   };
 
   return (
-    <div className='flex flex-col items-center ' >
+    <div className='flex flex-col items-center pt-5 ' >
       <div className='flex flex-row gap-4'>
 
         <div className="flex flex-col backdrop-filter overflow-y-auto Appointment
-            backdrop-blur-lg bg-opacity-0 rounded-md shadow-md bg-gray-200 p-4">
+            backdrop-blur-lg bg-opacity-50 rounded-md shadow-md bg-gray-200 p-4">
           <h1 className=" text-lg font-semibold  mb-4">Today's Appointments</h1>
           <input
             type="text"
@@ -66,7 +66,7 @@ const Home = () => {
             </div>
           ) : (
             filteredAppointments.length === 0 ? (
-              <p className="text-2xl text-green-100 font-mono m-3 ">You don't have any Appointments Today</p>
+              <p className="text-2xl text-white font-mono m-3 ">You don't have any Appointments Today</p>
             ) : (
               filteredAppointments.map(appointment => (
                 <div key={appointment.id} className="mb-2">

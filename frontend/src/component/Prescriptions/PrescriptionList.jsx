@@ -38,18 +38,19 @@ const PrescriptionList = () => {
   });
 
   return (
-    <div className='flex flex-col w-full PatientList rounded-lg backdrop-blur-lg bg-gray-600/70 bg-opacity-0 overflow-y-auto text-white m-10 p-10' style={{ height: '76vh' }}>
-      <div className="mb-4">
+    <div className='flex flex-col PatientList rounded-lg backdrop-blur-lg  bg-opacity-0 overflow-y-auto text-white m-5 pt-2 pl-16 pr-16' style={{ height: '85vh',  }}>
+      <div className=''>
+      <div className="mb-8">
         <input
           type="text"
           placeholder="Search by name..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="border bg-violet-200/70 border-gray-300 rounded-md p-2 w-full text-white font-bold"
+          className="border bg-white border-gray-300 rounded-md p-2 w-full text-gray-700 font-semibold"
         />
       </div>
 
-      <div>
+      <div className=''>
         {isLoading ? (
           <p>Loading Prescriptions...</p>
         ) : (
@@ -66,7 +67,7 @@ const PrescriptionList = () => {
           </ul>
         )}
       </div>
-
+      </div>
     </div>
   )
 }

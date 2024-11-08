@@ -20,7 +20,8 @@ function Login() {
     }
 
     return (
-        <div className='flex items-center justify-center min-h-screen'>
+        
+        <div className='flex items-center justify-center min-h-screen bg-green-500/50' style={{"width":"100vw"}}>
             <div className='w-full max-w-md p-6 rounded-lg shadow-md bg-gray-500 bg-opacity-30 backdrop-filter backdrop-blur-lg'>
                 <h1 className='text-3xl font-semibold text-center text-gray-200'>Login</h1>
                 <form onSubmit={handleSubmit} className='mt-4'>
