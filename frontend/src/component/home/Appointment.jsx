@@ -5,7 +5,7 @@ const Appointment = ({appointment}) => {
     // console.log(appointment);
     // console.log(appointment.Name)
     //console.log(appointment)
-    const homeAppBg= appointment.Status=='done'? 'bg-green-400': 'bg-blue-100'
+    const homeAppBg= appointment.Status=='done'? 'bg-white': 'bg-white'
     return (
         <div className='box-content'>
             <div className={`${homeAppBg} border border-blue-500 rounded-lg p-4 mb-2  `}>

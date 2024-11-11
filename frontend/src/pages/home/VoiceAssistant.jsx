@@ -103,25 +103,42 @@ const VoiceAssistant = () => {
   }, [isSpeaking, speakText, toggleRecognition]);
 
   return (
-    <div className='flex flex-col items-center  rounded h-5/6 p-5 ' >
-      <div className='w-52 h-56'>
-        <img src='/assistant.png' />
+    <div className='flex flex-col items-center justify-center h-5/6 p-8 mt-4 bg-gray-100 rounded-lg shadow-lg'>
+      <div className='w-52 h-56 mb-4'>
+        <img src='/assistant.png' alt='Assistant' className='object-cover rounded-lg shadow-md' />
       </div>
 
-      <div className='justify-center'>
-        <div className='bg-indigo-600 rounded-full animate-pulse p-6'>{listening && !isSpeaking && <MdOutlineSettingsVoice className='size-20' />}</div>
+      <div className='flex flex-col items-center justify-center w-full'>
+        <div className='bg-indigo-600 rounded-full animate-pulse p-8 mb-2'>
+          {listening && !isSpeaking && (
+            <MdOutlineSettingsVoice className='text-white text-4xl' />
+          )}
+        </div>
 
-        <button className='btn bg-blue-400 hover:bg-blue-500 text-2xl' onClick={toggleRecognition}>
+        <button
+          className='btn bg-blue-500 hover:bg-blue-600 text-white text-2xl font-semibold rounded-full py-2 px-6 transition duration-300 ease-in-out'
+          onClick={toggleRecognition}
+        >
           {listening ? 'Stop Talking' : 'Start Talking'}
         </button>
 
-        {listening && <div>
-          <p className='bg-emerald-200 p-4 m-5 rounded-md text-xl text-wrap'>
-            {repeatedText}</p>
-          {isSpeaking && <p className='text-white font-bold'>Agent Speaking...</p>}
-          <div className=' text-wrap relative rounded-full animate-pulse m-5 p-10'>{isSpeaking && <div> < img className='size-20' src='/assistantGif.gif' /> </div>}</div>
+        {listening && (
+          <div className='mt-6 w-full flex flex-col items-center'>
+            <p className='bg-emerald-200 p-4 rounded-md text-xl text-center font-medium shadow-md'>
+              {repeatedText}
+            </p>
 
-        </div>}
+            {isSpeaking && (
+              <p className='text-white font-bold mt-2'>Agent Speaking...</p>
+            )}
+
+            <div className='relative rounded-full m-0 pb-6'>
+              {isSpeaking && (
+                <img className='w-20 h-20 rounded-full shadow-md' src='/assistantGif.gif' alt='Assistant Animation' />
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
